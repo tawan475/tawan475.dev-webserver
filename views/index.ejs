@@ -22,7 +22,8 @@
     $(document).ready(function () {
       $("#siteTitle").html(window.location.hostname);
       $("#siteName").html(window.location.hostname);
-      $.getJSON("api." + location.host + "/visits", function (a) {
+      let visitApiUrl = location.protocol + "//" + "api." + location.host + "/visits";
+      $.getJSON(visitApiUrl, function (a) {
         document.getElementById("counter").innerHTML = `<small>Site visits: ${a.visits}</small>`
       })
     });
