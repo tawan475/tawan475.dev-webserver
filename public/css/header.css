@@ -1,0 +1,181 @@
+body {
+	font-family: "Arial";
+	background: #2c2f33;
+	/* margin: 0 auto; */
+}
+
+html, body {
+  height: 100%;
+}
+
+.uploadBox {
+	background-color: #23272a;
+	align-items: center;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.high {
+	line-height: 30px;
+}
+
+.flex-container > div {
+	text-align: center;
+}
+
+.fileBox {
+	background-color: #23272a;
+	width: auto;
+	height: auto;
+}
+
+.uploadBoxItem {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 45px;
+}
+
+/* nav,
+p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+} */
+
+.adblockblocker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: red;
+  font-size: 48px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.center {
+  vertical-align: middle;
+  padding: 50% 0;
+  text-align: center;
+}
+
+#counter {
+    color: #ffffff;
+	text-align: center;
+}
+
+.sidenav {
+  height: 100%;
+  width: 180px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  all: none;
+}
+
+.sidenav a:hover {
+  all: none;
+}
+
+.footer {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  bottom: 100%;
+  left: 0;
+  text-align: center;
+  color: white;
+}
+
+.footer a {
+  all: none;
+}
+
+.footer a:hover {
+  all: none;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+button {
+	border-radius: 0;
+}
+button:focus {
+	outline: dotted 1px;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+table.animated td {
+	width: 90px;
+	text-align: center;
+	font-size: 150%;
+}
+
+.adsbygoogle {
+	all: none;
+}
+
+.wikisub th, .wikisub td {
+	padding: 3px;
+}
+
+a,
+a:visited {
+	text-decoration: none;
+	color: #ffffff;
+}
+a:hover {
+	display: inline-block;
+	transform: perspective(10px) translateY(3px);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	transition-duration: 0.25s;
+	color: #99aab5;
+	background-color: #23272a;
+}
+
+#shadowBox {
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.2);
+	/* Black w/opacity/see-through */
+	border: 3px solid;
+}
+
+.rainbow {
+	text-align: center;
+	font-size: 275%;
+	font-family: monospace;
+	letter-spacing: 5px;
+}
+.rainbow_text_animated {
+	background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: rainbow_animation 8s ease-in-out infinite;
+	background-size: 500% 100%;
+}
+
+@keyframes rainbow_animation {
+	0%,
+	100% {
+		background-position: 0 0;
+	}
+
+	50% {
+		background-position: 100% 0;
+	}
+}
