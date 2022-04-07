@@ -26,8 +26,10 @@ module.exports = (app) => {
         next()
     })
 
-    app.use((req, res, next) => cloudflareIpProcessor(req, res, next))
-    app.use((req, res, next) => logger(req, res, next))
+    app.use(express.static(path.join(app.__dirname, 'public')));
+
+    app.use(cloudflareIpProcessor)
+    app.use(logger)
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
@@ -52,8 +54,6 @@ module.exports = (app) => {
             removeStyleLinkTypeAttributes: true
         }
     }));
-
-    app.use(express.static(path.join(app.__dirname, 'public')));
 
     app.use(compression());
 }
