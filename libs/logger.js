@@ -33,10 +33,13 @@ module.exports = (req, res, next) => {
     log += req.url;
 
     res.on('close', () => {
-        const timeTook = Number(process.hrtime.bigint() - startTime / (1000n * 1000n)).toFixed(3) + " ms";
+        const timeTook = Number((process.hrtime.bigint() - startTime) / (1000n * 1000n)) + " ms";
         // add time took to log string
         log += ` ${timeTook}`;
-        fs.appendFile("../request_logs.log", log + "\r\n", err => { if (err) console.log(err) });
+        console.log(log);
+        fs.appendFile("../request_logs.log", log + "\r\n", (err) => {
+            if (err) console.log(err)
+        });
     })
 
     next();

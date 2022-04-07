@@ -53,7 +53,7 @@ module.exports = (app) => {
         }
     }));
 
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(app.__dirname, 'public')));
 
     app.use(compression());
 }
