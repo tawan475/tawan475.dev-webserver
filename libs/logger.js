@@ -1,6 +1,8 @@
-module.exports = ((req, res, next) => {
+const fs = require("fs");
+
+module.exports = (req, res, next) => {
     let startTime = process.hrtime.bigint();
-    // [1648570997477] o:direct code:200 cloudflare(172.70.35.13) 34.74.204.144 GET:https://go.tawan475.dev/5wHi4che.png
+    // [1648570997477] o:direct code:200 cloudflare(172.70.35.13) 34.74.204.144 GET:https://tawan475.dev/ 123 ms 
 
     let log = '';
     log += `[${Date.now()}] `; // add time
@@ -12,7 +14,7 @@ module.exports = ((req, res, next) => {
     if (req.cloudflare) {
         let cfip = req.cloudflareip.padEnd(req.cloudflareipver === 'ipv6' ? 39 : 15);
         let loglength = (req.cloudflareipver === 'ipv6') ? (39 + 12) : (15 + 12);
-        log += `cloudflare(${cfip}) `.padEnd(loglength+1);
+        log += `cloudflare(${cfip}) `.padEnd(loglength + 1);
     }
     // add ip
     let iplength = req.trustedipver === 'ipv6' ? 39 : 15;
@@ -31,11 +33,11 @@ module.exports = ((req, res, next) => {
     log += req.url;
 
     res.on('close', () => {
-        const timeTook = Number(process.hrtime.bigint() - startTime / (1000n*1000n)).toFixed(3) + " ms";
+        const timeTook = Number(process.hrtime.bigint() - startTime / (1000n * 1000n)).toFixed(3) + " ms";
         // add time took to log string
         log += ` ${timeTook}`;
-
+        fs.appendFile("../request_logs.log", log + "\r\n", err => { if (err) console.log(err) });
     })
 
     next();
-})
+}

@@ -2,7 +2,7 @@ const ipaddr = require("ipaddr.js");
 const cloudflareIP = require('@tawan475/cloudflareip');
 const cfIP = new cloudflareIP();
 
-module.exports = ((req, res, next) => {
+module.exports = (req, res, next) => {
     if (req.headers['cf-connecting-ip'] && cfIP.isCloudflareIP(req)) {
         let realIP = ipaddr.process(req.headers['cf-connecting-ip']);
         let cloudflareip = ipaddr.process(req.socket.remoteAddress);
@@ -26,4 +26,4 @@ module.exports = ((req, res, next) => {
     }
 
     next();
-})
+}
