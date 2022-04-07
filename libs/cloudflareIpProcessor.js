@@ -17,9 +17,7 @@ module.exports = (req, res, next) => {
         req.trustedipver = realIP.kind();
 
         req.cloudflare = true;
-    }
-
-    if (!req.cloudflare) {
+    } else {
         let ip = ipaddr.process(req.socket.remoteAddress);
         req.trustedip = ip.toString();
         req.trustedipver = ip.kind();

@@ -2,7 +2,7 @@ const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const cloudflareIpProcessor = require('../libs/logger');
+const cloudflareIpProcessor = require('../libs/cloudflareIpProcessor');
 const logger = require('../libs/logger');
 
 module.exports = (app) => {
@@ -26,8 +26,8 @@ module.exports = (app) => {
         next()
     })
 
-    app.use(cloudflareIpProcessor)
-    app.use(logger);
+    app.use((req, res, next) => cloudflareIpProcessor(req, res, next))
+    app.use((req, res, next) => logger(req, res, next))
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
