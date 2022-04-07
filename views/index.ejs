@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="/css/header.css">
 
-  <link rel='icon' href='/favicon/favicon.ico' type='image/x-icon' />
+  <link rel='icon' href='/favicon.ico' type='image/x-icon' />
 
   <title id="siteTitle">tawan475.dev</title>
   <meta charset="UTF-8">
@@ -22,7 +22,7 @@
     $(document).ready(function () {
       $("#siteTitle").html(window.location.hostname);
       $("#siteName").html(window.location.hostname);
-      $.getJSON("/visits", function (a) {
+      $.getJSON("api." + location.host + "/visits", function (a) {
         document.getElementById("counter").innerHTML = `<small>Site visits: ${a.visits}</small>`
       })
     });
@@ -51,7 +51,8 @@
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-    </br></br></br>lol get flooded with ads</br><a href="/img/index-original.gif"><img src="/img/index.gif" alt=":^)"></a>
+    </br></br></br>lol get flooded with ads</br><a href="/img/index-original.gif"><img src="/img/index.gif"
+        alt=":^)"></a>
     <div style="text-align: center;" id="counter"></div>
   </main>
 </body>
