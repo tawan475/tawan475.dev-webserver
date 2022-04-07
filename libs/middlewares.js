@@ -13,11 +13,11 @@ module.exports = (app) => {
             if (!req.subdomains.length && req.headers.host != 'tawan475.dev') {
                 return res.redirect(301, 'https://tawan475.dev' + req.url);
             }
-    
+
             if (!req.secure) {
                 return res.redirect(301, 'https://' + req.headers.host + req.url);
             }
-    
+
             if (req.get('host').indexOf('www.') === 0 && (req.method === "GET" && !req.xhr)) {
                 return res.redirect(req.protocol + '://' + req.get('host').substring(4) + req.originalUrl);
             }
