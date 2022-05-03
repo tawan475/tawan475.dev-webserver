@@ -5,10 +5,10 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-app.__dirname = __dirname;
+app.dirname = __dirname;
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(app.dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
