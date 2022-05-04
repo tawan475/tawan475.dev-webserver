@@ -23,10 +23,12 @@ module.exports = (app) => {
             }
         };
 
+        req.domain = req.hostname.split('.').slice(-2).join('.');
+
         next()
     })
 
-    app.use(express.static(path.join(app.__dirname, 'public')));
+    app.use(express.static(path.join(app.dirname, 'public')));
 
     app.use(cloudflareIpProcessor)
     app.use(logger)
