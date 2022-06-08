@@ -35,12 +35,8 @@ app.use(function (err, req, res, next) {
 if (process.env.NODE_ENV !== 'production') process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 const options = process.env.NODE_ENV === "production" ? {
     key: fs.readFileSync('/etc/letsencrypt/live/tawan475.dev-0001/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/tawan475.dev-0001/cert.pem'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/tawan475.dev-0001/chain.pem')
+    cert: fs.readFileSync('/etc/letsencrypt/live/tawan475.dev-0001/fullchain.pem'),
 } : {
-    key: fs.readFileSync('./libs/ssl/localhost/localhost.key'),
-    cert: fs.readFileSync('./libs/ssl/localhost/localhost.crt')
-}
 
 require('http').createServer(app).listen(process.env.PORT, () => {
     console.log(`listening at HTTP`)
