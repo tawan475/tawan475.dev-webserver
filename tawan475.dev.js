@@ -3,6 +3,7 @@ const fs = require('fs');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 app.dirname = __dirname;
@@ -29,7 +30,19 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     if (!err) return; // no error
     // render the error page
-    res.status(err.status || 500).json({ status: err.status || 500, message: err.message || 'Internal Server Error' });
+	let errorID = uuidv4();
+	let errorRequestLog = `o:${req.get('origin') || "direct"} code:${res.statusCode} ${req.trustedip} ${req.method}:${req.protocol}://${req.get('host')}${req.url}`;
+	let errorMessage = `[${Date.now()}] errorID: ${errorID} | ${errorRequestLog}\r\n${err.stack}`
+	
+	console.log(errorMessage)
+	
+	fs.appendFile(path.join(req.app.dirname, "./error_logs.log"), errorMessage + "\r\n", (err) => {
+		if (err) console.log(err)
+	});
+
+	if (!err.status || err.status == 500) err.message = 'Internal Server Error';
+
+    res.status(err.status || 500).json({ status: err.status || 500, errorID: errorID, message: err.message || 'Internal Server Error' });
 });
 
 if (process.env.NODE_ENV !== 'production') process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
