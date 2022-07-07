@@ -26,8 +26,7 @@ app.use(function (req, res, next) {
     next(createError(404));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
+function errorHandler(err, req, res, next) {
     if (!err) return; // no error
     // render the error page
 	let errorID = uuidv4();
@@ -43,13 +42,19 @@ app.use(function (err, req, res, next) {
 	if (!err.status || err.status == 500) err.message = 'Internal Server Error';
 
     res.status(err.status || 500).json({ status: err.status || 500, errorID: errorID, message: err.message || 'Internal Server Error' });
-});
+}
+
+// error handler
+app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'production') process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 const options = process.env.NODE_ENV === "production" ? {
     key: fs.readFileSync('/etc/letsencrypt/live/tawan475.dev-0001/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/tawan475.dev-0001/fullchain.pem'),
 } : {
+    key: fs.readFileSync('./libs/ssl/localhost/localhost.key'),
+    cert: fs.readFileSync('./libs/ssl/localhost/localhost.crt')
+}
 
 require('http').createServer(app).listen(process.env.PORT, () => {
     console.log(`listening at HTTP`)
