@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/noads.js" defer></script>
+    <script src="/prebid-ads.js"></script>
+    <script data-ad-client="ca-pub-9231912947022457" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="/file/html/css/header.css">
+    <link rel="stylesheet" href="/file/html/css/animate.min.css">
+    <link rel="stylesheet" href="/file/html/css/normalize.css">
+    <script src="/file/html/js/header.js"></script>
+    <script src="/file/html/js/jquery.form.js"></script>
+
+    <link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">lol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>$(document).ready(function(){$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName"></p>
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main align="center" class="animated bounceInUp" style="color: white;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- spfscal -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9231912947022457"
+                 data-ad-slot="1566212083"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        <br><br><br>
+        <div style="font-size: 300%;" style="color: lime;">Time Since Michael Reeves Last Upload</div><br><br><br>
+        <div id="timer" style="font-size: 300%;"></div>
+        <div id="local" style="font-size: 175%;"></div><br>
+        <div>btw who is michael reeves?</div><br>
+        <div id="player"></div>
+        <div>made by <a href="mailto:tawan@tawan475.dev">tawan475</a>, enjoy ads &lt;3</div>
+        <div style="text-align: center;" id="counter"></div>
+    </main>
+</body>
+<script>window.canRunAds==void 0&&(document.body.innerHTML=`<div class="adblockblocker">Please disable adblocks!</div>`);</script>
+
+<script>
+    const lastVideoId = "<%= lastVideoId %>";
+    const lastUpload = parseInt("<%= lastUpload %>");
+    function update(){
+        let locale = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeStyle: 'long' }).format(lastUpload);
+        
+        let { y, mo, d, h, m, s, ms } = dateDiff(lastUpload)
+        
+        let timer = "";
+        timer+= y > 0 ? `${y} Year${(y==1)?" ":"s "}` : "";
+        timer+= mo > 0 ? `${mo} Month${(mo==1)?" ":"s "}` : "";
+        timer+= d > 0 ? `${d} Day${(d==1)?" ":"s "}` : "";
+        timer+= h > 0 ? `${h} Hour${(h==1)?" ":"s "}` : "";
+        timer+= m > 0 ? `${m} Minute${(m==1)?" ":"s "}` : "";
+        timer+= s > 0 ? `${s} Second${(s==1)?" ":"s "}` : "";
+        timer+= ms.toString().padStart(3, 0) + " Ms";
+        
+        $("#timer").html(timer);
+        $("#local").html(locale);
+        
+        setTimeout(update, 125);
+    }
+    function dateDiff(timestamp){
+        var d = Math.abs(new Date().getTime() - timestamp);
+        var r = {};
+        var s = {
+            y: 31536000000,
+            mo: 2592000000,
+            d: 86400000,
+            h: 3600000,
+            m: 60000,
+            s: 1000,
+            ms: 1
+        };
+
+        Object.keys(s).forEach(function(key){
+            r[key] = Math.floor(d / s[key]);
+            d -= r[key] * s[key];
+        });
+        
+        return r;
+    };
+    update();
+    
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            width: '854',
+            height: '480',
+            videoId: lastVideoId,
+            playerVars: {
+                'playsinline': 1
+            },
+        });
+    }
+</script>
+</html>
+

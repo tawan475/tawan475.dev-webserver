@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/noads.js" defer></script>
+    <script src="/prebid-ads.js"></script>
+    <script data-ad-client="ca-pub-9231912947022457" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="/file/html/css/header.css">
+    <link rel="stylesheet" href="/file/html/css/animate.min.css">
+    <link rel="stylesheet" href="/file/html/css/normalize.css">
+    <script src="/file/html/js/header.js"></script>
+    <script src="/file/html/js/jquery.form.js"></script>
+
+    <link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">lol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>$(document).ready(function(){$("#upload").ajaxForm({timeout:-1,success:function({file:a}){a.file_link&&($("#iffile").html("</br>File: "),$("#fileBox_name").html(a.filename).attr("href",a.file_link),$("#iflink").html("</br>Link: "),$("#fileBox_id").html(a.file_link).attr("href",a.file_link))}}),$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+</head>
+
+<body style="color:#FFFFFF;">
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName"></p>
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main class="animated bounceInUp">
+        <div class="flex-container transition-fade uploadBox uploadBoxItem">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- spfscal -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9231912947022457"
+                 data-ad-slot="1566212083"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <div>
+                <table id="calc" style="display: initial;">
+                <div style="text-align: center;"><button type=" button" style="display: initial;"
+                        onclick="calc()">Calculate!</button></div>
+                    <tr>
+                        <td style="text-align: right;">Levels</td>
+                        <td style="text-align: left;"><input type="text" id="levels"></td>
+                        <td style="text-align: left;">separated by a comma (,)</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">Target level</td>
+                        <td style="text-align: left;"><input type="text" id="tolevel"></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: right;">Hero's Wit needed</td>
+                    <td style="text-align: left;">
+                        <div id="HerosWitNeeded"></div>
+                    </td>
+                    <tr>
+                    <td style="text-align: right;">Mora needed</td>
+                    <td style="text-align: left;">
+                        <div id="MoraNeeded"></div>
+                    </td>
+                    </tr>
+                </tr>
+                </table>
+                <div style="text-align: center;" id="counter"></div>
+            </div>
+        </div>
+    </main>
+</body>
+<script>window.canRunAds==void 0&&(document.body.innerHTML=`<div class="adblockblocker">Please disable adblocks!</div>`);</script>
+<script>
+    function calc(){
+        let innows = document.getElementById("levels").value.split(",").map(e => parseInt(e));
+        let to = parseInt(document.getElementById("tolevel").value);
+        if (innows.some(v => { return (v<1) || (v>90)}) || (to < 1 || to > 90)) return document.getElementById("HerosWitNeeded").innerHTML = "Error: level is below 1 or above 90";
+        // let xptable = [{"Level":1,"Exp":1000,"Total":0},{"Level":2,"Exp":1325,"Total":1000},{"Level":3,"Exp":1700,"Total":2325},{"Level":4,"Exp":2150,"Total":4025},{"Level":5,"Exp":2625,"Total":6175},{"Level":6,"Exp":3150,"Total":8800},{"Level":7,"Exp":3725,"Total":11950},{"Level":8,"Exp":4350,"Total":15675},{"Level":9,"Exp":5000,"Total":20025},{"Level":10,"Exp":5700,"Total":25025},{"Level":11,"Exp":6450,"Total":30725},{"Level":12,"Exp":7225,"Total":37175},{"Level":13,"Exp":8050,"Total":44400},{"Level":14,"Exp":8925,"Total":52450},{"Level":15,"Exp":9825,"Total":61375},{"Level":16,"Exp":10750,"Total":71200},{"Level":17,"Exp":11725,"Total":81950},{"Level":18,"Exp":12725,"Total":93675},{"Level":19,"Exp":13775,"Total":106400},{"Level":20,"Exp":14875,"Total":120175},{"Level":21,"Exp":16800,"Total":135050},{"Level":22,"Exp":18000,"Total":151850},{"Level":23,"Exp":19250,"Total":169850},{"Level":24,"Exp":20550,"Total":189100},{"Level":25,"Exp":21875,"Total":209650},{"Level":26,"Exp":23250,"Total":231525},{"Level":27,"Exp":24650,"Total":254775},{"Level":28,"Exp":26100,"Total":279425},{"Level":29,"Exp":27575,"Total":305525},{"Level":30,"Exp":29100,"Total":333100},{"Level":31,"Exp":30650,"Total":362200},{"Level":32,"Exp":32250,"Total":392850},{"Level":33,"Exp":33875,"Total":425100},{"Level":34,"Exp":35550,"Total":458975},{"Level":35,"Exp":37250,"Total":494525},{"Level":36,"Exp":38975,"Total":531775},{"Level":37,"Exp":40750,"Total":570750},{"Level":38,"Exp":42575,"Total":611500},{"Level":39,"Exp":44425,"Total":654075},{"Level":40,"Exp":46300,"Total":698500},{"Level":41,"Exp":50625,"Total":744800},{"Level":42,"Exp":52700,"Total":795425},{"Level":43,"Exp":54775,"Total":848125},{"Level":44,"Exp":56900,"Total":902900},{"Level":45,"Exp":59075,"Total":959800},{"Level":46,"Exp":61275,"Total":1018875},{"Level":47,"Exp":63525,"Total":1080150},{"Level":48,"Exp":65800,"Total":1143675},{"Level":49,"Exp":68125,"Total":1209475},{"Level":50,"Exp":70475,"Total":1277600},{"Level":51,"Exp":76500,"Total":1348075},{"Level":52,"Exp":79050,"Total":1424575},{"Level":53,"Exp":81650,"Total":1503625},{"Level":54,"Exp":84275,"Total":1585275},{"Level":55,"Exp":86950,"Total":1669550},{"Level":56,"Exp":89650,"Total":1756500},{"Level":57,"Exp":92400,"Total":1846150},{"Level":58,"Exp":95175,"Total":1938550},{"Level":59,"Exp":98000,"Total":2033725},{"Level":60,"Exp":100875,"Total":2131725},{"Level":61,"Exp":108950,"Total":2232600},{"Level":62,"Exp":112050,"Total":2341550},{"Level":63,"Exp":115175,"Total":2453600},{"Level":64,"Exp":118325,"Total":2568775},{"Level":65,"Exp":121525,"Total":2687100},{"Level":66,"Exp":124775,"Total":2808625},{"Level":67,"Exp":128075,"Total":2933400},{"Level":68,"Exp":131400,"Total":3061475},{"Level":69,"Exp":134775,"Total":3192875},{"Level":70,"Exp":138175,"Total":3327650},{"Level":71,"Exp":148700,"Total":3465825},{"Level":72,"Exp":152375,"Total":3614525},{"Level":73,"Exp":156075,"Total":3766900},{"Level":74,"Exp":159825,"Total":3922975},{"Level":75,"Exp":163600,"Total":4082800},{"Level":76,"Exp":167425,"Total":4246400},{"Level":77,"Exp":171300,"Total":4413825},{"Level":78,"Exp":175225,"Total":4585125},{"Level":79,"Exp":179175,"Total":4760350},{"Level":80,"Exp":183175,"Total":4939525},{"Level":81,"Exp":216225,"Total":5122700},{"Level":82,"Exp":243025,"Total":5338925},{"Level":83,"Exp":273100,"Total":5581950},{"Level":84,"Exp":306800,"Total":5855050},{"Level":85,"Exp":344600,"Total":6161850},{"Level":86,"Exp":386950,"Total":6506450},{"Level":87,"Exp":434425,"Total":6893400},{"Level":88,"Exp":487625,"Total":7327825},{"Level":89,"Exp":547200,"Total":7815450},{"Level":90,"Exp":613950,"Total":8362650}]
+        let xptable = [0,1e3,2325,4025,6175,8800,11950,15675,20025,25025,30725,37175,44400,52450,61375,71200,81950,93675,106400,120175,135050,151850,169850,189100,209650,231525,254775,279425,305525,333100,362200,392850,425100,458975,494525,531775,570750,611500,654075,698500,744800,795425,848125,902900,959800,1018875,1080150,1143675,1209475,1277600,1348075,1424575,1503625,1585275,1669550,1756500,1846150,1938550,2033725,2131725,2232600,2341550,2453600,2568775,2687100,2808625,2933400,3061475,3192875,3327650,3465825,3614525,3766900,3922975,4082800,4246400,4413825,4585125,4760350,4939525,5122700,5338925,5581950,5855050,6161850,6506450,6893400,7327825,7815450,8362650];
+        let nows = innows.filter(l => l<=to)
+        let tolvl = xptable[to - 1];
+        let lvlnows = nows.map(l => xptable[l - 1]);
+        // let diff = lvlnows.map(l => tolvl["Total"] - l["Total"]);
+        let diff = lvlnows.map(l => tolvl - l);
+        let totalneed = diff.reduce((a,b) => a+b, 0);
+        document.getElementById("HerosWitNeeded").innerHTML = Math.ceil(totalneed/20000);
+        document.getElementById("MoraNeeded").innerHTML = "~" + Math.ceil(totalneed/5);
+    }
+</script>
+
+</html>

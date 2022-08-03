@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">lol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>$(document).ready(function(){$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName"></p>
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main class="animated bounceInUp" align="center">
+        <div id="status">Fetching data...</div>
+        <input type="text" id="textInput" hidden>
+        <div id="wordResult"></div>
+    </main>
+</body>
+<script>
+    let dict;
+    $("#status").text("Fetching data...")
+    $.get( "https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt", function( data ) {
+        $("#status").text("Dictionary finder!");
+        $("#textInput").on("input", finder);
+        $("#textInput").show();
+        dict = data.split("\r\n");
+        console.log(dict.length)
+    }).fail(function() {
+        $("#status").text("Error! maybe try again later?");
+    })
+    
+    function finder(){
+        let textInput = $("#textInput");
+        let val = textInput.val()
+        val = val.replaceAll(" ", "?");
+        textInput.val(val)
+        if (val.length < 1) return;
+        let regex = new RegExp(`^${val.replaceAll("?", ".")}${val.endsWith("?")?"":"$"}`, 'i');
+        let possibleWords = dict.filter(w => regex.test(w));
+        if (possibleWords.length > 1000) return $("#wordResult").text("Matched more than 1,000 results! replace give more clues");
+        if (possibleWords.length < 1) return $("#wordResult").text("No result.");
+        $("#wordResult").text(possibleWords.join(", "));
+    }
+</script>
+</html>

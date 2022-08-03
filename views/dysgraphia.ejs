@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+		<link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+		<title id="siteTitle">lol</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			.textarea-container {
+				width: 35em;
+			}
+			
+			@media screen and (max-width: 450px) {
+				.textarea-container {
+					width: 26em;
+				}
+			}
+			
+			@media screen and (max-width: 400px) {
+				.textarea-container {
+					width: 20em;
+				}
+			}
+			
+			@media screen and (max-width: 350px) {
+				.textarea-container {
+					width: 16em;
+				}
+			}
+		</style>
+
+		<script>$(document).ready(function(){$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+	</head>
+
+	<body>
+		<main align="center" style="width: 100%;">
+			<div id="status" style="font-size: 300%;">ᴅysgraᴘhia!</div>
+			<div>
+				<textarea id="textInput" class="textarea-container" rows="10" cols="60">Enter your text here!</textarea>
+			</div>
+			<div>
+				Threshold<input type="range" min="0" max="100" value="6.67" step="0.01" id="threshold"></input><input type="number" min="0" max="100" value="6.67" step="0.01" id="thresholdNumber"></input>
+			</div>
+			<div id="currentThreshold">Current Threshold: DEFAULT - 1/15 ~ 6.67%</div>
+			<div>
+				<textarea id="result" class="textarea-container" rows="10" readonly></textarea>
+			</div>
+		</main>
+		
+		<script>
+			dysgraphia()
+			$("#textInput").on("input", dysgraphia);
+			$("#threshold").on("change", changeThreshold);
+			$("#thresholdNumber").on("change", changeThresholdNumber);
+			
+			
+			function changeThreshold(){
+				$("#thresholdNumber").val($("#threshold").val());
+				$("#currentThreshold").text("Current Threshold: " + $("#threshold").val() + "%");
+				dysgraphia()
+			}
+			
+			function changeThresholdNumber(){
+				$("#threshold").val($("#thresholdNumber").val());
+				$("#currentThreshold").text("Current Threshold: " + $("#threshold").val() + "%");
+				dysgraphia()
+			}
+			
+			function dysgraphia(){
+				let str = $("#textInput").val();
+				let threshold = parseFloat($("#threshold").val()) / 100;
+				let table = {
+					cap: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+					small: "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ",
+					normal: "abcdefghijklmnopqrstuvwxyz",
+					super: "ᵃᵇᶜᵈᵉᶠᵍʰᶦʲᵏˡᵐⁿᵒᵖᵠʳˢᵗᵘᵛʷˣʸᶻ",
+					subscript: ["ₐ", "ᵦ", "𝒸", "𝒹", "ₑ", "𝒻", "𝓰", "ₕ", "ᵢ", "ⱼ", "ₖ", "ₗ", "ₘ", "ₙ", "ₒ", "ₚ", "ᵩ", "ᵣ", "ₛ", "ₜ", "ᵤ", "ᵥ", "𝓌", "ₓ", "ᵧ", "𝓏"],
+					number: { "o": "0", },
+					halfOrSilent: { "i": "'", "l": "'" },
+					special: { " ": ["", "  ", "   "] }
+				};
+				
+				let result = str.split("\n").map(line => {
+					return line.split("").map(c => {
+						if (c.match(/[a-z]/i)){
+							let offset = 0;
+							if (c.match(/[a-z]/)) offset = -32;
+							let charPos = c.charCodeAt() + offset - 65;
+
+							if (Math.random() < threshold) return table.cap[charPos];
+							if (Math.random() < threshold) return table.small[charPos];
+							if (Math.random() < threshold) return table.normal[charPos];
+							if (Math.random() < threshold) return table.super[charPos];
+							if (Math.random() < threshold) return table.subscript[charPos];
+						}
+
+						if (table.number[c] && Math.random() < threshold) return table.number[c];
+						if (table.halfOrSilent[c] && Math.random() < threshold) return table.halfOrSilent[c];
+						if (table.special[c] && Math.random() < threshold/2) return table.special[c][Math.floor(Math.random() * table.special[c].length)];
+						
+						return c;
+					}).join("")
+				}).join("\n")
+				$("#result").text(result);
+			}
+		</script>
+	</body>
+</html>

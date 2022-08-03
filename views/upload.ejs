@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/noads.js" defer></script>
+    <script src="/prebid-ads.js"></script>
+    <script data-ad-client="ca-pub-9231912947022457" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="/file/html/css/header.css">
+    <link rel="stylesheet" href="/file/html/css/animate.min.css">
+    <link rel="stylesheet" href="/file/html/css/normalize.css">
+    <script src="/file/html/js/header.js"></script>
+    <script src="/file/html/js/jquery.form.js"></script>
+
+    <link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">lol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>$(document).ready(function(){$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName"></p>
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main class="animated bounceInUp">
+        <div class="flex-container transition-fade uploadBox uploadBoxItem">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- spfscal -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9231912947022457"
+                 data-ad-slot="1566212083"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <div>
+                <form id="upload" action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="flex-container">
+                        <div><input type="file" name="file" id="file" style="color:white;" required></div>
+                        <div class="container high">
+                            <div><button id="uploadButton" style="align-items:center;background-color: paleturquoise;" type="button">Upload</button></div>
+                            <script>function copy(a){var b=document.createElement("textarea");b.style.top="0",b.style.left="0",b.style.position="fixed",b.style.width="2em",b.style.height="2em",b.style.padding=0,b.style.textAreaorder="none",b.style.outline="none",b.style.boxShadow="none",b.style.background="transparent",b.value=a,document.body.appendChild(b),b.focus(),b.select();try{var c=document.execCommand("copy"),d=c?"successful":"unsuccessful";"successful"==d&&$("#result").html("Copied to clipboard successfully!"),console.log("copied to clipboard "+d)}catch(a){console.error("unable to copy",a)}document.body.removeChild(b)}</script>
+                            <script>function msToTime(a){let b=Math.floor(a/1e3);a%=1e3;let c=Math.floor(b/60);b%=60;let d=Math.floor(c/60);return c%=60,`${d?d+" Hour"+(1==d?"":"s"):""}${c?(d?" ":"")+c+" Minute"+(1==c?"":"s"):""}${b?(d||c?" ":"")+b+" Second"+(1==b?"":"s"):""}${a%1e3?(d||c||b?" ":"")+a%1e3+"ms":""}`}</script>
+                            <script>
+                                document.getElementById("uploadButton").onclick = function(e) {
+                                    $("#result").html("Uploading...");
+                                    $("#timeTook").html("");
+                                    $("#filename").html("");
+                                    $("#uid").html("");
+                                    $("#url").html("");
+                                    $("#fullurl").html("");
+                                    var startUpload = Date.now();
+                                    $.ajax({
+                                        url: '/upload',
+                                        type: 'post',
+                                        data: new FormData($('#upload')[0]),
+                                        processData: false,
+                                        contentType: false,
+                                        success: function({ file: a }) {
+                                            copy(a.url);
+                                            $("#timeTook").html("Time took: " + msToTime(Date.now() - startUpload));
+                                            $("#filename").html(`Filename: <a href="${a.url}"><div id="filenameName" style="display:inline;"></div></a>`);
+                                            $("#filenameName").text(a.filename);
+                                            $("#uid").html(`UID: <a href="${a.url}">${a.uid}</a>`);
+                                            $("#url").html(`URL: <a href="${a.url}">${a.url}</a>`);
+                                            $("#fullurl").html(`Full URL: <a href="${a.fullUrl}"><div id="fullurlName" style="display:inline;"></div></a>`);
+                                            $("#fullurlName").text(a.fullUrl);
+                                        }
+                                    })
+                                };
+                            </script>
+                            <div class="result" style="text-align: left;color: white; margin: auto; background: #2c2f33;">
+                                <div style="text-align: center; font-size: 150%;" id="result"></div>
+                                <div style="text-align: center;" id="timeTook"></div>
+                                <div id="filename"></div>
+                                <div id="uid"></div>
+                                <div id="url"></div>
+                                <div id="fullurl" ></div>
+                            </div>
+                            <div style="color: white;line-height: normal;">
+                                <div style="font-size: 125%;"></br>Note:</div>
+                                <div>The current size limit is 20MB</div>
+                                <div>To upload multiple file please consider using zip file instead.</div>
+                                <div><u><a href="https://go.tawan475.dev/Z1SzXHrd/tawan475dev-file.sxcu">ShareX File Upload</a></u></div>
+                                <div><u><a href="https://go.tawan475.dev/Vn4CbnqK/tawan475dev-urlshorten.sxcu">ShareX URL Shortener</a></u></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div style="text-align: center;" id="counter"></div>
+            </div>
+        </div>
+    </main>
+</body>
+<script>window.canRunAds==void 0&&(document.body.innerHTML=`<div class="adblockblocker">Please disable adblocks!</div>`);</script>
+</html>

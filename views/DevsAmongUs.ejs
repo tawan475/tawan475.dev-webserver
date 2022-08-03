@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="/prebid-ads.js"></script>
+    <!-- <script data-ad-client="ca-pub-9231912947022457" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+    <link rel="stylesheet" href="/file/html/css/header.css">
+    <link rel="stylesheet" href="/file/html/css/animate.min.css">
+    <link rel="stylesheet" href="/file/html/css/normalize.css">
+    <script src="/file/html/js/header.js"></script>
+
+    <script src="/file/html/js/jquery-3.4.1.min.js"></script>
+    <script src="/file/html/js/jquery.form.js"></script>
+
+    <link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">lol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>$(document).ready(function(){$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName"></p>
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main align="center" class="animated bounceInUp" style="color: white;">
+        <br><br><br>
+        <div style="font-size: 300%;" style="color: lime;">Dev's Among Us</div><br><br><br>
+        <div id="status">The next party is in</div>
+        <div id="timer" style="font-size: 300%;"></div>
+        <div id="local" style="font-size: 175%;"></div><br><br>
+        <div id="discord"><a href="https://discord.gg/mvAfuRNNw4">Join our discord! <b>https://discord.gg/mvAfuRNNw4</b></a></div>
+        <div style="text-align: center;" id="counter"></div>
+    </main>
+</body>
+<script>function update(){var a=new Date,b=new Date(new Date(new Date(a.setUTCDate(a.getUTCDate()+(6-a.getUTCDay())))).setUTCHours(19,0,0,0)),c=b.getTime()-new Date().getTime(),e=new Intl.DateTimeFormat("en-GB",{dateStyle:"long",timeStyle:"long"}).format(b);if(594e6<c)$("#timer").html(`<a href="https://discord.gg/mvAfuRNNw4">The party is ongoing!</a>`),$("#status").html(""),$("#local").html("");else if(0<c){var f=Math.floor(c/86400000),d=Math.floor(c%86400000/3600000),g=Math.floor(c%3600000/60000),h=Math.floor(c%60000/1e3);$("#timer").html(`${0<f?`${f} Day${1==f?" ":"s "}`:""}${0<d?`${d} Hour${1==d?" ":"s "}`:""}${0<g?`${g} Minute${1==g?" ":"s "}`:""}${h} Second${1==h?"":`s`}`),$("#status").html(`The party is starting ${18e5>c?"soon!":"in"}`),$("#local").html(e)}setTimeout(update,1e3)}update();</script>
+<!-- <script>window.canRunAds==void 0&&(document.body.innerHTML=`<div class="adblockblocker">Please disable adblocks!</div>`);</script> -->
+<!--
+<script>
+    function update(){
+        var currentTime = new Date();
+        var next = new Date(new Date(new Date(currentTime.setUTCDate(currentTime.getUTCDate() + ((6 - currentTime.getUTCDay()))))).setUTCHours(19, 0, 0, 0));
+
+        var diffrent = next.getTime() - new Date().getTime();
+	    // console.log(currentTime, next, diffrent)
+        var locale = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeStyle: 'long' }).format(next);
+        if (diffrent > 594000000) {
+            $("#timer").html(`<a href="https://discord.gg/mvAfuRNNw4">The party is ongoing!</a>`);
+            $("#status").html("");
+            $("#local").html("");
+        } else if (diffrent > 0){
+            var d = Math.floor(diffrent / (1000 * 60 * 60 * 24));
+            var h = Math.floor((diffrent % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var m = Math.floor((diffrent % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((diffrent % (1000 * 60)) / 1000);
+            $("#timer").html(`${d>0?`${d} Day${(d==1)?" ":"s "}`:""}${h>0?`${h} Hour${(h==1)?" ":"s "}`:""}${m>0?`${m} Minute${(m==1)?" ":"s "}`:""}${s} Second${(s==1)?"":`s`}`);
+            $("#status").html(`The party is starting ${diffrent < 1800000?"soon!":"in"}`);
+            $("#local").html(locale);
+        }
+        setTimeout(update, 1000);
+    }
+    update();
+</script>
+-->
+</html>
+

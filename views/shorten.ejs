@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/noads.js" defer></script>
+    <script src="/prebid-ads.js"></script>
+    <script data-ad-client="ca-pub-9231912947022457" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="/file/html/css/header.css">
+    <link rel="stylesheet" href="/file/html/css/animate.min.css">
+    <link rel="stylesheet" href="/file/html/css/normalize.css">
+    <script src="/file/html/js/header.js"></script>
+    <script src="/file/html/js/jquery.form.js"></script>
+
+    <link rel='icon' href='/file/html/favicon/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">lol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>$(document).ready(function(){$("#siteTitle").html(window.location.hostname),$("#siteName").html(window.location.hostname),$.getJSON("/visits",function(a){document.getElementById("counter").innerHTML=`<small>Site visits: ${a.visits}</small>`})});</script>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName"></p>
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main class="animated bounceInUp">
+        <div class="flex-container transition-fade uploadBox uploadBoxItem">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- spfscal -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9231912947022457"
+                 data-ad-slot="1566212083"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <div>
+                <form id="shorten" action="/shorten" method="post">
+                    <div class="flex-container">
+                        <div><input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required></div>
+                        <div class="container high">
+                            <div>
+                                <input id="submitbutton" style="align-items:center;background-color: paleturquoise;" type="submit"
+                                        value="Shorten"></input>
+                                <script>function copy(a){var b=document.createElement("textarea");b.style.top="0",b.style.left="0",b.style.position="fixed",b.style.width="2em",b.style.height="2em",b.style.padding=0,b.style.textAreaorder="none",b.style.outline="none",b.style.boxShadow="none",b.style.background="transparent",b.value=a,document.body.appendChild(b),b.focus(),b.select();try{var c=document.execCommand("copy"),d=c?"successful":"unsuccessful";"successful"==d&&$("#result").html("</br>Copied to clipboard successfully!"),console.log("copied to clipboard "+d)}catch(a){console.error("unable to copy",a)}document.body.removeChild(b)}</script>
+                                <script>function msToTime(a){let b=Math.floor(a/1e3);a%=1e3;let c=Math.floor(b/60);b%=60;let d=Math.floor(c/60);return c%=60,`${d?d+" Hour"+(1==d?"":"s"):""}${c?(d?" ":"")+c+" Minute"+(1==c?"":"s"):""}${b?(d||c?" ":"")+b+" Second"+(1==b?"":"s"):""}${a%1e3?(d||c||b?" ":"")+a%1e3+"ms":""}`}</script>
+                                <!-- <script>
+                                function msToTime(ms) {
+                                    let s = Math.floor(ms / 1000);
+                                        ms = ms % 1000;
+                                    let m = Math.floor(s / 60);
+                                        s = s %  60
+                                    let hr = Math.floor(m / 60);
+                                        m = m % 60
+                                    return `${hr?hr+" Hour"+(hr!=1?"s":""):""}${m?(hr?" ":"")+m+" Minute"+(m!=1?"s":""):""}${s?((hr||m)?" ":"")+s+" Second"+(s!=1?"s":""):""}${(ms % 1000)?((hr||m||s)?" ":"")+(ms % 1000)+"ms":""}`
+                                }
+                                </script> -->
+                                <script>document.getElementById("shorten").addEventListener("submit",function(e){e;e.preventDefault();$("#result").html("</br>Uploading...");var startUpload=Date.now();$.ajax({url: '/shorten', type: 'post', data: $("#shorten").serialize(), success:function({shorten:a}){copy(a.url);a.url&&($("#timeTook").html("</br>Time took: " + msToTime(Date.now()-startUpload)),$("#url_text").html("</br></br>URL: "),$("#url_url").html(a.url).attr("href",a.url),$("#uid_text").html("</br>UID: "),$("#uid_uid").html(a.uid).attr("href","https://go.tawan475.dev/"+a.file_uid))}})});</script>
+                            </div>
+                                    
+                            <div class="result">
+                                <td>
+                                    <div style="text-align: center; color: white;display:inline; font-size: 150%;" id="result"></div>
+                                </td>
+                                <td>
+                                    <div style="text-align: center; color: white;display:inline;" id="timeTook"></div>
+                                </td>
+                                <td>
+                                    <p id="url_text" style="color: white;display:inline;"></p><a href=""
+                                        id="url_url"></a>
+                                </td>
+                                <td>
+                                    <p id="uid_text" style="color: white;display:inline;"></p><a href=""
+                                        id="uid_uid"></a>
+                                </td>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div style="text-align: center;" id="counter"></div>
+            </div>
+        </div>
+    </main>
+</body>
+<script>window.canRunAds==void 0&&(document.body.innerHTML=`<div class="adblockblocker">Please disable adblocks!</div>`);</script>
+<script>
+/*
+function copy(text) {
+    var textArea = document.createElement("textarea");
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    textArea.style.width="2em"
+    textArea.style.height="2em"
+    textArea.style.padding=0
+    textArea.style.textAreaorder="none"
+    textArea.style.outline="none"
+    textArea.style.boxShadow="none"
+    textArea.style.background="transparent"
+    
+    textArea.value = text;
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        if (msg == 'successful') $("#copyresult").html("Copied to clipboard successfully!")
+        console.log('copied' + msg + 'to clipboard' + msg);
+    } catch (err) {
+        console.error('unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+}
+*/
+</script>
+</html>

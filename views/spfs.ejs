@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    Heyyy you
+    yea you
+    im bad no judge
+ -->
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+    <script src="/js/noads.js" defer></script>
+    <script data-ad-client="ca-pub-9231912947022457" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+    <link rel='icon' href='/favicon.ico' type='image/x-icon' />
+
+    <title id="siteTitle">Super power fighting simulator power knowledge base</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+        console.clear();
+        var units = ["K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "N", "Dc", "Ud", "Dd", "Td", "Qua", "Qui", "Sxd", "Spd", "Ocd", "Nod",
+            "Vg", "UVg", "DVg", "TVg", "QaVg", "QiVg", "SxVg", "SpVg", "OcVg", "NVg", "Tgn", "UTg"];
+        $(document).ready(function () {
+            $('#siteName').html(window.location.hostname);if (new Date().getUTCDay() % 6 == 0) document.getElementById("weekendMult").value = 1.5;
+            for (let i = 0; i < 65; i++) $('#skillMult').append(new Option("x" + abbrNum(Math.pow(2, i), 2), i));
+            $('.unitSelecter').each(function (i, o) {
+                o.append(new Option("none", 0), true);
+                for (let i = 0; i < units.length; i++) o.append(new Option(units[i], i + 1));
+            });
+        });
+    </script>
+</head>
+
+<!-- <div id="hid" align="center"
+    style="background: #2c2f33; z-index: 9; text-align: center;font-size:22px; width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+    If u want to help the spfs calc heres the<br>data format<br><b>new rank</b><br>-power multiplier<br>-token
+    multiplier<br><br><b>new fusion</b><br>power multiplier<br>-gems multiplie<br><br><b>new transform</b><br>-day power
+    multiplier<br>-night power multiplier (stacked)<br>-token multiplier<br>-gem multiplier<br>you can include the
+    event multiplier aswell<br>i might consider adding event update stuff into the cal<br>if enough data were
+    provided<br>im like dying from sore throat and stuff i cant even stand up myself<br><b>CLICK TO HIDE</b></div> -->
+
+<body style="color:#FFFFFF;">
+    <nav>
+        <div>
+            <div class="animated bounceInDown">
+                <p class="rainbow rainbow_text_animated" id="siteName">
+            </div>
+            <table align="center" class="animated bounceInUp">
+                <td><a href="/">Index</a></td>
+                <td><a href="/file">Files</a></td>
+                <td><a href="/upload">Upload</a></td>
+                <td><a href="/tools">Tools</a></td>
+            </table>
+        </div>
+    </nav>
+
+    <main align="center" class="animated bounceInUp"
+        style="color: white; background-color: #23272a; align-items: center;">
+        <div class="transition-fade" align="center" style="color:#FFFFFF;">
+            <div style="text-align: center;font-size:22px;"><br><b>Super power fighting simulator power knowledge
+                    base</b></div>
+            <div style="text-align: center;"><small>Last update: <%= new Date(lastHTMLUpdate).toLocaleString()%><br>🎉 350000 visits 🎉<br>Update note: Added Space Calculator</small><br>
+            </div>
+            <div style="text-align: center;">Calculator<br></div>
+            <div style="text-align: center;">
+                <button type="button" onclick="showSim()">Simple</button>
+                <button type="button" onclick="showAdv()">Advance</button>
+                <button type="button" onclick="showSpace()">Space</button>
+            </div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- spfscal -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9231912947022457"
+                data-ad-slot="1566212083" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <table id="sim" style="display: initial;">
+                <div style="text-align: center;"><button type=" button" style="display: initial;" id="showSim"
+                        onclick="calculateSim()">Calculate!</button></div>
+                <tr>
+                    <td style="text-align: right;">Power you want</td>
+                    <td style="text-align: left;"><input type="number" min="1" step="any" id="powerWantSim"></td>
+                    <td style="text-align: left;">Unit:<select id="powerWantUnitSim" class="unitSelecter"></select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power you have now</td>
+                    <td style="text-align: left;"><input type="number" min="1" step="any" id="powerHaveSim"></td>
+                    <td style="text-align: left;">Unit:<select id="powerHaveUnitSim" class="unitSelecter"></select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power I get per second (tick)</td>
+                    <td style="text-align: left;"><input type="number" min="1" step="any" id="powerPerTickSim"></td>
+                    <td style="text-align: left;">Unit:<select id="powerPerTickUnitSim" class="unitSelecter"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">It double at night</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="nightDoubleSim">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">You will get that power in</td>
+                    <td style="text-align: left;">
+                        <div id="powerInSim"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="text-align: center;">These calculation are not precise due to input error,
+                            <br>try advance version to get precise calculation.</div>
+                    </td>
+                </tr>
+            </table>
+            <table id="adv" style="display: none;">
+                <div style="text-align: center;"><button type="button" id="showAdv" style="display: none;"
+                        onclick="calculateAdv()">Calculate!</button></div>
+                <tr>
+                    <td style="text-align: right;">Power you want</td>
+                    <td style="text-align: left;"><input type="number" id="powerWant" min="1" step="any"></td>
+                    <td style="text-align: left;">Unit:<select id="powerWantUnit" class="unitSelecter"></select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power you have now</td>
+                    <td style="text-align: left;"><input type="number" id="powerHave" min="1" step="any"></td>
+                    <td style="text-align: left;">Unit:<select id="powerHaveUnit" class="unitSelecter"></select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Skill Multiplier </td>
+                    <td style="text-align: left;"><select id="skillMult"></select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Item multiplier</td>
+                    <td style="text-align: left;"><input type="number" id="itemMult" min="1" step=any value="1"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Training area Multiplier</td>
+                    <td style="text-align: left;"><select id="areaMult">
+                            <option value="0">x1</option>
+                            <option value="1">x2</option>
+                            <option value="2">x5</option>
+                            <option value="3">x20</option>
+                            <option value="4">x100</option>
+                            <option value="5">x750</option>
+                            <option value="6">x10 K</option>
+                            <option value="7">x120 K</option>
+                            <option value="8">x3 M</option>
+                            <option value="9">x100 M</option>
+                            <option value="10">x3 B</option>
+                            <option value="11">x90 B</option>
+                            <option value="12">x2.5 T</option>
+                            <option value="13">x75 T</option>
+                            <option value="14">x2.25 Qa</option>
+                            <option value="15">x75 Qa</option>
+                            <option value="16">x3 Qi</option>
+                            <option value="17">x3.3 Qi</option>
+                            <option value="18">x3.6 Qi</option>
+                            <option value="19">x300 Qi</option>
+                            <option value="20">x30 Sx</option>
+                            <option value="21">x7.5 Sp</option>
+                            <option value="22">x1 Oc</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Rank</td>
+                    <td style="text-align: left;"><select id="rank">
+                            <option value="0">F</option>
+                            <option value="1">E</option>
+                            <option value="2">D</option>
+                            <option value="3">C</option>
+                            <option value="4">B</option>
+                            <option value="5">A</option>
+                            <option value="6">S</option>
+                            <option value="7">SS</option>
+                            <option value="8">SSS</option>
+                            <option value="9">X</option>
+                            <option value="10">Y</option>
+                            <option value="11">Z</option>
+                            <option value="12">XYZ</option>
+                            <option value="13">Legend</option>
+                            <option value="14">Immortal</option>
+                            <option value="15">Ruler of Time</option>
+                            <option value="16">Universe Ruler</option>
+                            <option value="17">Multiverse Ruler</option>
+                            <option value="18">Omni</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Fusion</td>
+                    <td style="text-align: left;"><select id="fusion">
+                            <option value="0">None</option>
+                            <option value="1">Werewolf</option>
+                            <option value="2">Minotaur</option>
+                            <option value="3">Gryphon</option>
+                            <option value="4">Phoenix</option>
+                            <option value="5">Yeti</option>
+                            <option value="6">Hydra</option>
+                            <option value="7">Reaper</option>
+                            <option value="8">Dragon</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Transform</td>
+                    <td style="text-align: left;"><select id="transform">
+                            <option value="0">None</option>
+                            <option value="1">Buff Noob</option>
+                            <option value="2">Werewolf</option>
+                            <option value="3">Minotaur</option>
+                            <option value="4">Gryphon</option>
+                            <option value="5">Phoenix</option>
+                            <option value="6">Golden Guardian</option>
+                            <option value="7">Shadow Lord</option>
+                            <option value="8">Forgotten Dragon</option>
+                            <option value="9">Void Emperor</option>
+                            <option value="10">Yeti</option>
+                            <option value="11">Hydra</option>
+                            <option value="12">Demon</option>
+                            <option value="13">Dark Knight</option>
+                            <option value="14">Event Lord</option>
+                            <option value="15">Skelemancer</option>
+                            <option value="16">Reaper</option>
+                            <option value="17">Hellfire Skeleton</option>
+                            <option value="18">The Sinister One</option>
+                            <option value="19">Celestial Overlord</option>
+                            <option value="20">Pumpkin God</option>
+                            <option value="21">Sci-Borg</option>
+                            <option value="22">Elf</option>
+                            <option value="23">Reindeer</option>
+                            <option value="24">Snowman</option>
+                            <option value="25">Festive Ninja</option>
+                            <option value="26">Festive Ruler</option>
+                            <option value="27">Festive Valkyrie</option>
+                            <option value="28">Frostbite Knight</option>
+                            <option value="29">Ice Golem</option>
+                            <option value="30">Peppermint Penguin</option>
+                            <option value="31">Festive Spirit</option>
+                            <option value="32">Almighty Ruler</option>
+                            <option value="33">Dragon Ruler</option>
+                            <option value="34">Eternal Lord</option>
+                            <option value="35">Sparks</option>
+                            <option value="36">Ancient Warrior</option>
+                            <option value="37">Ocean God</option>
+                            <option value="38">Thunder God</option>
+                            <option value="39">Skeleton Dragon</option>
+                            <option value="40">Demon Axolotl</option>
+                            <option value="41">Shadow Demon King</option>
+                            <option value="42">Universal Destroyer</option>
+                            <option value="43">Gingerbread King</option>
+                            <option value="44">Ice Angel Queen</option>
+                            <option value="45">Winter Wizard</option>
+                            <option value="46">Frost Lord</option>
+                            <option value="47">Golden Warrior</option>
+                            <option value="48">Mecha Dragon</option>
+                            <option value="49">Gem Guardian</option>
+                            <option value="50">Forgotten Knight</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Weekend multiplier</td>
+                    <td style="text-align: left;"><select id="weekendMult">
+                            <option value="1">x1</option>
+                            <option value="1.5">x1.5</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">I want to afk for</td>
+                    <td style="text-align: left;"><input type="number" id="timeWait" min="1" step=any></td>
+                    <td style="text-align: left;">second</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">I have 2x power boost for</td>
+                    <td style="text-align: left;"><input type="number" id="boostTimer" min="1" step=any></td>
+                    <td style="text-align: left;">second</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">I have VIP gamepass</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="VIPadv">
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="3">
+                        <div>
+                            <div style="font-size:25px;"><strong>Sub multiplier</strong><br></div>
+                            <div style="text-align: center; max-width:100%;">
+                                <button type="button" onclick="showStat(['.goals'])">Goals</button>
+                                <button type="button" onclick="showStat(['.artifact'])">Artifacts</button>
+                                <button type="button" onclick="showStat([])">Hide</button>
+                            </div>
+                            <div id="subStats" style="text-align: center; width:100%">
+                                <table class="statssub goals" style="display: none;">
+                                    <tr>
+                                        <td colspan="3">
+                                            <div style="font-size:18px; text-align: center;"><strong>Goals</strong>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Strength</td>
+                                        <td style="text-align: left;"><select id="powerBoostStrength">
+                                                <option value="0">+0%</option>
+                                                <option value="5">+5%</option>
+                                                <option value="10">+10%</option>
+                                                <option value="15">+15%</option>
+                                                <option value="20">+20%</option>
+                                                <option value="25">+25%</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Endurance</td>
+                                        <td style="text-align: left;"><select id="powerBoostEndurance">
+                                                <option value="0">+0%</option>
+                                                <option value="5">+5%</option>
+                                                <option value="10">+10%</option>
+                                                <option value="15">+15%</option>
+                                                <option value="20">+20%</option>
+                                                <option value="25">+25%</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Psychic</td>
+                                        <td style="text-align: left;"><select id="powerBoostPsychic">
+                                                <option value="0">+0%</option>
+                                                <option value="5">+5%</option>
+                                                <option value="10">+10%</option>
+                                                <option value="15">+15%</option>
+                                                <option value="20">+20%</option>
+                                                <option value="25">+25%</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Speed</td>
+                                        <td style="text-align: left;"><select id="powerBoostSpeed">
+                                                <option value="0">+0%</option>
+                                                <option value="7.5">+7.5%</option>
+                                                <option value="15">+15%</option>
+                                                <option value="22.5">+22.5%</option>
+                                                <option value="30">+30%</option>
+                                                <option value="37.5">+37.5%</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Currency time reduction</td>
+                                        <td style="text-align: left;"><select id="CurrencyTimeBoost">
+                                                <option value="0">-0s</option>
+                                                <option value="1">-1s</option>
+                                                <option value="2">-2s</option>
+                                                <option value="3">-3s</option>
+                                                <option value="4">-4s</option>
+                                                <option value="5">-5s</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Quests Completion</td>
+                                        <td style="text-align: left;"><select id="tokenBoost">
+                                                <option value="1">+0%</option>
+                                                <option value="1.02">+2%</option>
+                                                <option value="1.04">+4%</option>
+                                                <option value="1.06">+6%</option>
+                                                <option value="1.08">+8%</option>
+                                                <option value="1.10">+10%</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Gem boost (Play time)</td>
+                                        <td style="text-align: left;"><select id="gemBoost">
+                                                <option value="1">1.00x</option>
+                                                <option value="1.05">1.05x</option>
+                                                <option value="1.10">1.10x</option>
+                                                <option value="1.15">1.15x</option>
+                                                <option value="1.20">1.20x</option>
+                                                <option value="1.25">1.25x</option>
+                                            </select></td>
+                                    </tr>
+                                </table><br>
+                                <table class="statssub artifact" style="display: none;">
+                                    <tr>
+                                        <td colspan="3">
+                                            <div style="font-size:18px; text-align: center;"><strong>Artifact</strong>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Artifact stat multiplier</td>
+                                        <td style="text-align: left;"><input type="text" id="artifactStatRaw"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Aritfact tokens multiplier</td>
+                                        <td style="text-align: left;"><input type="text" id="artifactTokensRaw"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">Aritfact gems multiplier</td>
+                                        <td style="text-align: left;"><input type="text" id="artifactGemsRaw"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div>
+                                                To use this feature you must put each of your<br>
+                                                artifact's multiplier in this format "artifact A+artifact B"<br>
+                                                for example; "1.125+1.2"
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="font-size:22px; text-align: center;"><strong>Result</strong></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Passive Multiplier</td>
+                    <td style="text-align: left;">
+                        <div id="passiveMult"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">You will get that power in</td>
+                    <td style="text-align: left;">
+                        <div id="powerIn"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">and you will get</td>
+                    <td style="text-align: left;">
+                        <div id="tokenIn"></div>
+                    </td>
+                    <td>Tokens</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="gemIn"></div>
+                    </td>
+                    <td>Gems</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="eventIn"></div>
+                    </td>
+                    <td>Event Currency</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">After you wait you will get</td>
+                    <td style="text-align: left;">
+                        <div id="powerWaitIn"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">and</td>
+                    <td style="text-align: left;">
+                        <div id="tokenWaitIn"></div>
+                    </td>
+                    <td>Tokens</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="gemWaitIn"></div>
+                    </td>
+                    <td>Gems</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="eventWaitIn"></div>
+                    </td>
+                    <td>Event Currency</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="text-align: center;"><b>Per second (Tick)</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power</td>
+                    <td style="text-align: left;">
+                        <div id="powerSecond"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Tokens</td>
+                    <td style="text-align: left;">
+                        <div id="tokenSecond"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Gems</td>
+                    <td style="text-align: left;">
+                        <div id="gemSecond"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="eventSecond"></div>
+                    </td>
+                    <td>Event Currency</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="text-align: center;"><b>Per minute</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power</td>
+                    <td style="text-align: left;">
+                        <div id="powerMinute"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Tokens</td>
+                    <td style="text-align: left;">
+                        <div id="tokenMinute"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Gems</td>
+                    <td style="text-align: left;">
+                        <div id="gemMinute"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="eventMinute"></div>
+                    </td>
+                    <td>Event Currency</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="text-align: center;"><b>Per hour</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power</td>
+                    <td style="text-align: left;">
+                        <div id="powerHour"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Tokens</td>
+                    <td>
+                        <div id="tokenHour"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Gems</td>
+                    <td>
+                        <div id="gemHour"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: left;">
+                        <div id="eventHour"></div>
+                    </td>
+                    <td>Event Currency</td>
+                </tr>
+            </table>
+            <table id="space" style="display: none;">
+                <div style="text-align: center;"><button type=" button" style="display: none;" id="showSpace"
+                        onclick="calculateSpace()">Calculate!</button></div>
+                <tr>
+                    <td style="text-align: right;">Stat Type</td>
+                    <td style="text-align: left;"><select id="statTypeSpace">
+                            <option value="endurance">Endurance</option>
+                            <option value="strength">Strength</option>
+                            <option value="psychic">Psychic</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Transformation</td>
+                    <td style="text-align: left;"><select id="transformSpace">
+                            <option value="Null">None</option>
+                            <option value="endurance">Galactic Guardian</option>
+                            <option value="strength">Fire Ranger</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Goal</td>
+                    <td style="text-align: left;"><select id="goalSpace">
+                            <option value="1.0">1.0</option>
+                            <option value="1.03">1.03</option>
+                            <option value="1.06">1.06</option>
+                            <option value="1.09">1.09</option>
+                            <option value="1.12">1.12</option>
+                            <option value="1.15">1.15</option>
+                        </select></td>
+                </tr>
+				<tr>
+					<td style="text-align: right;">Aritfact stat multiplier</td>
+					<td style="text-align: left;"><input type="text" id="artifactStatSpaceRaw"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div style="text-align: center;">
+							To use this feature you must put each of your<br>
+							artifact's multiplier in this format "artifact A+artifact B"<br>
+							for example; "1.125+1.2"
+						</div>
+					</td>
+				</tr>
+                <tr>
+                    <td style="text-align: right;">Power you want (SPACE)</td>
+                    <td style="text-align: left;"><input type="number" min="1" step="any" id="powerWantSpace"></td>
+                    <td style="text-align: left;">Unit:<select id="powerWantUnitSpace" class="unitSelecter"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power you have now (SPACE)</td>
+                    <td style="text-align: left;"><input type="number" min="1" step="any" id="powerHaveSpace"></td>
+                    <td style="text-align: left;">Unit:<select id="powerHaveUnitSpace" class="unitSelecter"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Power I get per second (NORMAL)</td>
+                    <td style="text-align: left;"><input type="number" min="1" step="any" id="powerPerTickSpace"></td>
+                    <td style="text-align: left;">Unit:<select id="powerPerTickUnitSpace" class="unitSelecter"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">It double at night</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="nightDoubleSpace">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">You will get that power in</td>
+                    <td style="text-align: left;">
+                        <div id="powerInSpace"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="text-align: center;">These calculation are not precise due to input error,
+                            <br>try advance version and copy PER TICK result to space version to get precise
+                            calculation.</div>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                Unlock limitation <input type="checkbox" id="unlock">
+            </div>
+            <br>
+            <table id="wiki">
+                <div style="font-size:22px;"><strong>Wiki</strong><br><small></small></div>
+                <tr>
+                    <td style="text-align: center;">
+                        <div style="text-align: center;">
+                            <button type="button" onclick="show(['.multipliers'])">Multipliers</button>
+                            <button type="button" onclick="show(['.rep'])">Reputation</button>
+                            <button type="button" onclick="show(['.units'])">Units</button>
+                            <button type="button" onclick="show(['.vip'])">VIP servers</button>
+                            <button type="button" onclick="show([])">Hide</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <table class="wikisub multipliers" style="display: none;">
+                            <tr>
+                                <th>Multi</th>
+                                <th>Cost</th>
+                            </tr>
+                            <tr>
+                                <td>x1</td>
+                                <td>0 Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x2</td>
+                                <td>100 Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x4</td>
+                                <td>200 Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x8</td>
+                                <td>500 Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x16</td>
+                                <td>750 Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x32</td>
+                                <td>1K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x64</td>
+                                <td>2K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x128</td>
+                                <td>3K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x256</td>
+                                <td>5K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x512</td>
+                                <td>7.5K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x1.02K</td>
+                                <td>10K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x2.04K</td>
+                                <td>15K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x4.09K</td>
+                                <td>20K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x8.19K</td>
+                                <td>25K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x16.38K</td>
+                                <td>35K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x32.76K</td>
+                                <td>50K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x65.53K</td>
+                                <td>67.5K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x131.07K</td>
+                                <td>100K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x262.14K</td>
+                                <td>125K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x524.28K</td>
+                                <td>165K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x1.04M</td>
+                                <td>220K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x2.09M</td>
+                                <td>300K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x4.19M</td>
+                                <td>400K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x8.38M</td>
+                                <td>550K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x16.77M</td>
+                                <td>800K Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x33.55M</td>
+                                <td>1.1M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x67.10M</td>
+                                <td>1.5M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x134.21M</td>
+                                <td>2M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x268.43M</td>
+                                <td>3M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x536.87M</td>
+                                <td>5M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x1.07B</td>
+                                <td>7.5M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x2.147B</td>
+                                <td>8M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td>x4.29B</td>
+                                <td>10M Tokens</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Each level from this point is<br>+250K tokens of previous level<br>-
+                                    Joethekillerbob17</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <table class="wikisub rep" style="display: none;">
+                            <tr>
+                                <th>Reputation</th>
+                                <th>Status</th>
+                            </tr>
+                            <tr>
+                                <td>10000</td>
+                                <td>God</td>
+                            </tr>
+                            <tr>
+                                <td>2500</td>
+                                <td>Light</td>
+                            </tr>
+                            <tr>
+                                <td>1000</td>
+                                <td>Peacekeeper</td>
+                            </tr>
+                            <tr>
+                                <td>250</td>
+                                <td>Angel</td>
+                            </tr>
+                            <tr>
+                                <td>75</td>
+                                <td>Superhero</td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td>Officer</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Defender</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Savior</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>Innocent</td>
+                            </tr>
+                            <tr>
+                                <td>-1</td>
+                                <td>Outlaw</td>
+                            </tr>
+                            <tr>
+                                <td>-7</td>
+                                <td>Crook</td>
+                            </tr>
+                            <tr>
+                                <td>-25</td>
+                                <td>Assassin</td>
+                            </tr>
+                            <tr>
+                                <td>-75</td>
+                                <td>Supervillain</td>
+                            </tr>
+                            <tr>
+                                <td>-250</td>
+                                <td>Demon</td>
+                            </tr>
+                            <tr>
+                                <td>-1000</td>
+                                <td>Destroyer</td>
+                            </tr>
+                            <tr>
+                                <td>-2500</td>
+                                <td>Darkness</td>
+                            </tr>
+                            <tr>
+                                <td>-10000</td>
+                                <td>Devil</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <table class="wikisub units" style="display: none;">
+                            <td>
+                            <th><Math>log<sub>1000</sub></Math></th>
+                            <th>Scientific<br>notation</th>
+                            <th>Abbreviation</th>
+                            <th>Name</th>
+                    </td>
+                <tr>
+                    <td></td>
+                    <td>0</td>
+                    <td><Math>10<sup>0</sup></Math></td>
+                    <td>None</td>
+                    <td>One</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>1</td>
+                    <td><Math>10<sup>3</sup></Math></td>
+                    <td>K</td>
+                    <td>Thousand</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>2</td>
+                    <td><Math>10<sup>6</sup></Math></td>
+                    <td>M</td>
+                    <td>Million</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>3</td>
+                    <td><Math>10<sup>9</sup></Math></td>
+                    <td>B</td>
+                    <td>Billion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>4</td>
+                    <td><Math>10<sup>12</sup></Math></td>
+                    <td>T</td>
+                    <td>Trillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>5</td>
+                    <td><Math>10<sup>15</sup></Math></td>
+                    <td>Qa</td>
+                    <td>Quadrillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>6</td>
+                    <td><Math>10<sup>18</sup></Math></td>
+                    <td>Qi</td>
+                    <td>Quintillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>7</td>
+                    <td><Math>10<sup>21</sup></Math></td>
+                    <td>Sx</td>
+                    <td>Sextillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>8</td>
+                    <td><Math>10<sup>24</sup></Math></td>
+                    <td>Sp</td>
+                    <td>Septillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>9</td>
+                    <td><Math>10<sup>27</sup></Math></td>
+                    <td>Oc</td>
+                    <td>Octillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>10</td>
+                    <td><Math>10<sup>30</sup></Math></td>
+                    <td>N</td>
+                    <td>Nonillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>11</td>
+                    <td><Math>10<sup>33</sup></Math></td>
+                    <td>Dc</td>
+                    <td>Decillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>12</td>
+                    <td><Math>10<sup>36</sup></Math></td>
+                    <td>Ud</td>
+                    <td>Undecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>13</td>
+                    <td><Math>10<sup>39</sup></Math></td>
+                    <td>Dd</td>
+                    <td>Duodecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>14</td>
+                    <td><Math>10<sup>42</sup></Math></td>
+                    <td>Td</td>
+                    <td>Tredecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>15</td>
+                    <td><Math>10<sup>45</sup></Math></td>
+                    <td>Qua</td>
+                    <td>Quattuordecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>16</td>
+                    <td><Math>10<sup>48</sup></Math></td>
+                    <td>Qui</td>
+                    <td>Quindecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>17</td>
+                    <td><Math>10<sup>51</sup></Math></td>
+                    <td>Sxd</td>
+                    <td>Sexdecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>18</td>
+                    <td><Math>10<sup>54</sup></Math></td>
+                    <td>Spd</td>
+                    <td>Septendecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>19</td>
+                    <td><Math>10<sup>57</sup></Math></td>
+                    <td>Ocd</td>
+                    <td>Octodecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>20</td>
+                    <td><Math>10<sup>60</sup></Math></td>
+                    <td>Nd</td>
+                    <td>Novemdecillion</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <div style="text-align: right;">reference:</div>
+                    </td>
+                    <td>
+                        <div style="text-align: left;"><u><a
+                                    href="https://en.wikipedia.org/wiki/Names_of_large_numbers">wikipedia.org</a></u>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">
+                    <table id="vip" class="wikisub vip" style="display: none; text-align: center;">
+                        <tr>
+                            <th>#</th>
+                            <th>Link</th>
+                            <th>PVP status</th>
+                            <th>Owner</th>
+                            <th>Visits</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Nothing appear? try reload</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+            <div>
+                your ads go here<br>mail me i need<br>money to keep the<br>server running<br><br>
+            </div>
+            <!-- <div style="text-align: center;">Bookmark this page so you can access it faster<br>or drag and drop this
+                image to your bookmark bar<br><a href="https://tawan475.dev/spfs"><img src="/file/spfscalc/bookmark.png"
+                        alt="SPFS calculator"></a><br><br></div> -->
+            <!-- <div>
+                <b style="text-align: center; font-size:26px">Roblox antiafk</b><br>
+                <u><a href="/file/spfscalc/antiafk/Roblox antiafk.exe" target="_blank">download</a></u>
+                <u><a href="/file/spfscalc/antiafk/" target="_blank">source</a></u><br>
+                This will auto click roblox window<br>
+                for you if you afk for 3 minutes<br>
+                <b>Aka magic</b><br>
+                <br>
+            </div> -->
+            <div style="text-align: center; font-size:24px"><b><u><a href="https://forms.gle/nDNLRg5yFc7FjveF7"
+                            target="_blank">Feedback</a></u></b></div>
+            <div style="text-align: center;">If there is any error please dm <u><a
+                        href="mailto:tawan@tawan475.dev">tawan475#5966</a></u> on discord<br></div>
+            <br>reference: <u><a
+                    href="https://super-power-fighting-simulator.fandom.com/wiki/Super_Power_Fighting_Simulator_Wiki">Fandom</a></u>
+        </div>
+        <div style="text-align: center;" id="counter"></div>
+        </div>
+    </main>
+</body>
+<script>
+    function set(html, val) {
+        return document.getElementById(html).innerHTML = val;
+    }
+
+    function get(html) {
+        var val = document.getElementById(html).value;
+        return val == "" ? 0 : parseFloat(val);
+    }
+
+    function show(t) {
+        $(`.wikisub`).each(function (i, obj) { obj.style.display = "none" });
+        $(`.sub`).each(function (i, obj) { obj.style.display = "none" });
+        t.forEach(function (i) {
+            $(i).each(function (i, obj) {
+                obj.style.display = "initial"
+            });
+        })
+    }
+
+    function showStat(t) {
+        $(`.statssub`).each(function (i, obj) { obj.style.display = "none" });
+        t.forEach(function (i) {
+            $(i).each(function (i, obj) {
+                obj.style.display = "initial"
+            });
+        })
+    }
+
+    function showAdv() {
+        document.getElementById('adv').style.display = "initial"
+        document.getElementById('showAdv').style.display = "initial"
+        document.getElementById('sim').style.display = "none"
+        document.getElementById('showSim').style.display = "none"
+        document.getElementById('space').style.display = "none"
+        document.getElementById('showSpace').style.display = "none"
+
+    }
+
+    function showSim() {
+        document.getElementById('adv').style.display = "none"
+        document.getElementById('showAdv').style.display = "none"
+        document.getElementById('sim').style.display = "initial"
+        document.getElementById('showSim').style.display = "initial"
+        document.getElementById('space').style.display = "none"
+        document.getElementById('showSpace').style.display = "none"
+    }
+
+    function showSpace() {
+        document.getElementById('adv').style.display = "none"
+        document.getElementById('showAdv').style.display = "none"
+        document.getElementById('sim').style.display = "none"
+        document.getElementById('showSim').style.display = "none"
+        document.getElementById('space').style.display = "initial"
+        document.getElementById('showSpace').style.display = "initial"
+    }
+
+    function calculateSim() {
+        var powerWantValue = get("powerWantSim");
+        var powerWantUnit = get("powerWantUnitSim");
+
+        var powerHaveValue = get("powerHaveSim");
+        var powerHaveUnit = get("powerHaveUnitSim");
+
+        var powerPerSecValue = get("powerPerTickSim");
+        var powerPerSecUnit = get("powerPerTickUnitSim");
+        var nightDoubleSim = document.getElementById("nightDoubleSim").checked;
+        var unlock = document.getElementById("unlock").checked;
+
+        var powerWant = powerWantValue ? (powerWantValue * unit(powerWantUnit)) : powerWantValue === 0 ? 0 : NaN;
+        var powerHave = powerHaveValue ? (powerHaveValue * unit(powerHaveUnit)) : powerHaveValue === 0 ? 0 : NaN;
+        var powerPerSec = powerPerSecValue ? (powerPerSecValue * unit(powerPerSecUnit)) : 1;
+
+        if (!unlock) if (powerHave > powerWant || isNaN(powerWant) || isNaN(powerHave)) return alert(`You cannot put "Power you want" more than "Power you have"\r\nor put invalid numbers (too big, too small)\r\nAsk #spfs-questions on how to use it.`);
+
+        var powerInTime = nightDoubleSim ? timeToReadable(Math.floor((powerWant - powerHave) / ((powerPerSec / 2) + powerPerSec))) : timeToReadable(Math.floor((powerWant - powerHave) / powerPerSec));
+        console.clear();
+        logVerbose(`-------Simple calculation------`);
+        logVerbose(`powerWant: ${powerWant} (${powerWantValue} * ${unit(powerWantUnit)})`);
+        logVerbose(`powerHave: ${powerHave} (${powerHaveValue} * ${unit(powerHaveUnit)})`);
+        logVerbose(`powerPerSec: ${powerPerSec}`);
+        logVerbose(``);
+        logVerbose(`nightDoubleSim: ${nightDoubleSim}`);
+        logVerbose(`powerPerSec: ${powerPerSec}`);
+        logVerbose(``);
+        logVerbose(`powerInTime: ${powerInTime.sec}`);
+
+        set("powerInSim", powerInTime.string);
+    }
+
+    function calculateAdv() {
+        var powerWantValue = get("powerWant");
+        var powerWantUnit = get("powerWantUnit");
+
+        var powerHaveValue = get("powerHave");
+        var powerHaveUnit = get("powerHaveUnit");
+
+        var timeWait = get("timeWait");
+
+        var skillMult = Math.pow(2, get("skillMult"));
+        var itemMult = get("itemMult");
+        var areaMult = areaMultiplier(get("areaMult"));
+        var rank = rankMultiplier(get("rank"));
+        var fusion = fusionMultiplier(get("fusion"));
+        var transform = transformMultiplier(get("transform"));
+        var weekendMult = get("weekendMult");
+        var boostTimer = get("boostTimer");
+
+        // goals
+
+        var powerBoostStrength = get("powerBoostStrength");
+        var powerBoostEndurance = get("powerBoostEndurance");
+        var powerBoostPsychic = get("powerBoostPsychic");
+        var powerBoostSpeed = get("powerBoostSpeed");
+
+        var totalBoost = (powerBoostStrength + powerBoostEndurance + powerBoostPsychic + powerBoostSpeed) / 100
+
+        var CurrencyTimeBoost = get("CurrencyTimeBoost");
+        var tokenBoost = get("tokenBoost");
+        var gemBoost = get("gemBoost");
+
+        // artifactStatRaw
+
+        var artifactStatRaw = document.getElementById("artifactStatRaw").value;
+        var artifactTokensRaw = document.getElementById("artifactTokensRaw").value;
+        var artifactGemsRaw = document.getElementById("artifactGemsRaw").value;
+
+
+        var artifactStats = artifactStatRaw.split("+").filter(parseFloat).map(parseFloat).map(f => f - 1).reduce((a, b) => a + b, 1);
+        var artifactTokens = artifactTokensRaw.split("+").filter(parseFloat).map(parseFloat).map(f => f - 1).reduce((a, b) => a + b, 0);
+        var artifactGems = artifactGemsRaw.split("+").filter(parseFloat).map(parseFloat).map(f => f - 1).reduce((a, b) => a + b, 1);
+
+        var unlock = document.getElementById("unlock").checked;
+
+        var powerWant = powerWantValue ? (powerWantValue * unit(powerWantUnit)) : powerWantValue === 0 ? 0 : NaN;
+        var powerHave = powerHaveValue ? (powerHaveValue * unit(powerHaveUnit)) : powerHaveValue === 0 ? 0 : NaN;
+
+        var VIP = document.getElementById("VIPadv").checked;
+        var powerPerSec = (((skillMult * areaMult * rank.power * fusion.power * weekendMult * itemMult) * (transform.day + transform.night) * (1 + totalBoost)) / 2) * artifactStats;
+        var tokenPerSec = ((25 / (60 - CurrencyTimeBoost)) * rank.token) * (tokenBoost + transform.token - 1) * (artifactTokens + 1) + (VIP * (1000 / 900));
+        var gemPerSec = (((fusion.gems * transform.gem) / (60 - CurrencyTimeBoost)) * 500 * gemBoost) * artifactGems + (VIP * (5000 / 900));
+        var eventTokenPerSec = (500 * transform.event) / 60;
+        var passiveMult = (skillMult * rank.power * fusion.power * itemMult * weekendMult) * (transform.day + transform.night) / 2
+        if (!unlock) if (powerHave > powerWant || isNaN(powerWant) || isNaN(powerHave)) return alert(`You cannot put "Power you want" more than "Power you have"\r\nor put invalid numbers (too big, too small)\r\nAsk #spfs-questions on how to use it.`);
+
+        set("passiveMult", abbrNum(passiveMult, 2) + " (" + passiveMult.toExponential(2) + ")")
+
+        set("powerSecond", abbrNum(powerPerSec, 2))
+        set("tokenSecond", tokenPerSec.toFixed(2))
+        set("gemSecond", gemPerSec.toFixed(2))
+        set("eventSecond", eventTokenPerSec.toFixed(2))
+
+        set("powerMinute", abbrNum((powerPerSec * 60), 2))
+        set("tokenMinute", Math.floor(tokenPerSec * 60))
+        set("gemMinute", Math.floor(gemPerSec * 60))
+        set("eventMinute", Math.floor(eventTokenPerSec * 60))
+
+        set("powerHour", abbrNum((powerPerSec * 3600), 2))
+        set("tokenHour", Math.floor(tokenPerSec * 3600))
+        set("gemHour", Math.floor(gemPerSec * 3600))
+        set("eventHour", Math.floor(eventTokenPerSec * 3600))
+
+        if (boostTimer) {
+            var timeTook = 0;
+
+            timeTook = ((powerWant - powerHave) - (2 * powerPerSec * boostTimer)) / (2 * powerPerSec)
+            if ((2 * powerPerSec * boostTimer) <= powerWant) {
+                timeTook = 0;
+                timeTook += boostTimer;
+                powerWantAfter2x = powerWant - (2 * powerPerSec * boostTimer);
+                timeTook += (powerWantAfter2x - powerHave) / powerPerSec;
+            }
+        }
+        var powerInTime = boostTimer ? timeToReadable(Math.floor(timeTook)) : powerWant ? timeToReadable(Math.floor((powerWant - powerHave) / powerPerSec)) : false;
+        if (powerInTime) {
+            set("powerIn", powerInTime.string ? powerInTime.string : "")
+            set("tokenIn", powerInTime.sec ? Math.floor(tokenPerSec * powerInTime.sec + (1000 * powerInTime.sec / 900)) : "0")
+            set("gemIn", powerInTime.sec ? Math.floor(gemPerSec * powerInTime.sec + (5000 * powerInTime.sec / 900)) : "0")
+            set("eventIn", powerInTime.sec ? Math.floor(eventTokenPerSec * powerInTime.sec) : "0")
+        }
+        set("powerWaitIn", timeWait ? abbrNum((powerPerSec * timeWait), 2) : "")
+        set("tokenWaitIn", timeWait ? Math.floor((tokenPerSec * timeWait + (1000 * timeWait / 900))) : "")
+        set("gemWaitIn", timeWait ? Math.floor(gemPerSec * timeWait + (5000 * timeWait / 900)) : "")
+        set("eventWaitIn", timeWait ? Math.floor(eventTokenPerSec * timeWait) : "")
+
+        console.clear();
+        logVerbose(`------Advance calculation------`);
+        logVerbose(`powerWant: ${powerWant} (${powerWantValue} * ${unit(powerWantUnit)})`);
+        logVerbose(`powerHave: ${powerHave} (${powerHaveValue} * ${unit(powerHaveUnit)})`);
+        logVerbose(`timeWait: ${timeWait}`);
+        logVerbose(``);
+        logVerbose(`skillMult: ${skillMult} (2^${get("skillMult")})`);
+        logVerbose(`itemMult: ${itemMult}`);
+        logVerbose(`areaMult: ${areaMult} (${areaMult.toExponential()})`);
+        logVerbose(`rank: ${JSON.stringify(rank)} (power: ${rank.power.toExponential()}, token: ${rank.token})`);
+        logVerbose(`fusion: ${JSON.stringify(fusion)} (power: ${fusion.power.toExponential()} gems: ${fusion.gems.toExponential()})`);
+        logVerbose(`transform: ${JSON.stringify(transform)}`);
+        logVerbose(`weekendMult: ${weekendMult}`);
+        logVerbose(``);
+        logVerbose(`powerPerSec: ${powerPerSec}`);
+        logVerbose(`tokenPerSec: ${tokenPerSec}`);
+        logVerbose(`gemPerSec: ${gemPerSec}`);
+        logVerbose(`eventTokenPerSec: ${eventTokenPerSec}`)
+        logVerbose(`passiveMult: ${passiveMult} (${passiveMult.toExponential(2)})`);
+        logVerbose(`artifactStats: ${artifactStats}`);
+        logVerbose(`artifactGems: ${artifactGems}`);
+        logVerbose(``);
+        logVerbose(`powerInTime: ${powerInTime.sec}`);
+    }
+    
+    function calculateSpace() {
+        var statTypeSpace = document.getElementById("statTypeSpace").value;
+        var statTypeSpace = document.getElementById("statTypeSpace").value;
+        
+        var powerWantSpaceValue = get("powerWantSpace");
+        var powerWantSpaceUnit = get("powerWantUnitSpace");
+
+        var powerHaveSpaceValue = get("powerHaveSpace");
+        var powerHaveSpaceUnit = get("powerHaveUnitSpace");
+
+        var transformSpace = document.getElementById("transformSpace").value;
+
+		var artifactStatSpaceRaw = document.getElementById("artifactStatSpaceRaw").value;
+		var artifactStatSpace = artifactStatSpaceRaw.split("+").filter(parseFloat).map(parseFloat).map(f => f - 1).reduce((a, b) => a + b, 1);
+        var goalSpace = get("goalSpace");
+        var powerPerSecSpaceValue = get("powerPerTickSpace");
+        var powerPerSecSpaceUnit = get("powerPerTickUnitSpace");
+        var nightDoubleSpace = document.getElementById("nightDoubleSpace").checked;
+        var unlock = document.getElementById("unlock").checked;
+
+        let transformSpaceMultiplier = transformSpace === 'endurance' ? 1.1 : ( transformSpace === 'strength' ? 1.1 : 1)
+        var powerWantSpace = powerWantSpaceValue ? (powerWantSpaceValue * unit(powerWantSpaceUnit) * (1/ (transformSpaceMultiplier * artifactStatSpace * goalSpace)) ) : powerWantSpaceValue === 0 ? 0 : NaN;
+        var powerHaveSpace = powerHaveSpaceValue ? (powerHaveSpaceValue * unit(powerHaveSpaceUnit) * (1/ (transformSpaceMultiplier * artifactStatSpace * goalSpace)) ) : powerHaveSpaceValue === 0 ? 0 : NaN;
+
+        var powerWantSpaceNormalize = Math.pow(10, (29 + (powerWantSpace / (statTypeSpace === 'endurance' ? 1000 : 250) ) ));
+        var powerHaveSpaceNormalize = Math.pow(10, (29 + (powerHaveSpace / (statTypeSpace === 'endurance' ? 1000 : 250) ) ));
+
+        var powerPerSecSpace = powerPerSecSpaceValue ? (powerPerSecSpaceValue * unit(powerPerSecSpaceUnit)) : 1;
+
+        if (!unlock) if (powerHaveSpaceNormalize > powerWantSpaceNormalize || isNaN(powerWantSpaceNormalize) || isNaN(powerHaveSpaceNormalize)) return alert(`You cannot put "Power you want" more than "Power you have"\r\nor put invalid numbers (too big, too small)\r\nAsk #spfs-questions on how to use it.`);
+
+        var powerInTimeSpace = nightDoubleSpace ? timeToReadable(Math.floor((powerWantSpaceNormalize - powerHaveSpaceNormalize) / ((powerPerSecSpace / 2) + powerPerSecSpace))) : timeToReadable(Math.floor((powerWantSpaceNormalize - powerHaveSpaceNormalize) / powerPerSecSpace));
+        console.clear();
+        logVerbose(`-------Space calculation------`);
+        logVerbose(`statTypeSpace: ${statTypeSpace}`);
+        logVerbose(`powerWantSpace: ${powerWantSpace} (${powerWantSpaceValue} * ${unit(powerWantSpaceUnit)} * (1/ (${transformSpaceMultiplier} * ${artifactStatSpace} * ${goalSpace})))`);
+        logVerbose(`powerHaveSpace: ${powerHaveSpace} (${powerHaveSpaceValue} * ${unit(powerHaveSpaceUnit)} * (1/ (${transformSpaceMultiplier} * ${artifactStatSpace} * ${goalSpace})))`);
+        logVerbose(`powerWantSpaceNormalize: ${powerWantSpaceNormalize} (10^(29 + (${powerWantSpace} / ${(statTypeSpace === 'endurance' ? 1000 : 250)} )))`);
+        logVerbose(`powerHaveSpaceNormalize: ${powerHaveSpaceNormalize} (10^(29 + (${powerWantSpace} / ${(statTypeSpace === 'endurance' ? 1000 : 250)} )))`);
+        logVerbose(`powerPerSecSpace: ${powerPerSecSpace}`);
+		logVerbose(`transformSpace: ${transformSpace}`);
+		logVerbose(`transformSpaceMultiplier: ${transformSpaceMultiplier}`);
+		logVerbose(`artifactStatSpace: ${artifactStatSpace}`);
+		logVerbose(`goalSpace: ${goalSpace}`);
+        logVerbose(``);
+        logVerbose(`nightDoubleSpace: ${nightDoubleSpace}`);
+        logVerbose(`powerPerSecSpace: ${powerPerSecSpace}`);
+        logVerbose(``);
+        logVerbose(`powerInTimeSpace: ${powerInTimeSpace.sec}`);
+
+        set("powerInSpace", powerInTimeSpace.string);
+    }
+
+    function timeToReadable(sec) {
+        // based on https://gist.github.com/Erichain/6d2c2bf16fe01edfcffa
+        minute = Math.floor(sec / 60);
+        second = Math.abs(sec) % 60;
+        hour = Math.floor(minute / 60);
+        minute = minute % 60;
+        day = Math.floor(hour / 24);
+        hour = hour % 24;
+        month = Math.floor(day / 30);
+        day = day % 30;
+        year = Math.floor(month / 12);
+        month = month % 12;
+        var string = `${year ? year + "yr " : ""}${month ? month + "mo " : ""}${day ? day + "d " : ""}${hour ? hour + "h " : ""} ${minute ? minute + "m " : ""}${second ? second + "s " : ""}${sec ? "(" + sec + "s)" : ""}`
+        if (!document.getElementById("unlock").checked && year > 1) {
+            alert("Stop putting big number.");
+            return { string: "" };
+        }
+        return {
+            second: second,
+            minute: minute,
+            hour: hour,
+            day: day,
+            month: month,
+            year: year,
+            string: isNaN(sec) ? "NaN" : (sec < 0) ? ": Boost remain: " + Math.abs(sec) : (sec > 0) ? string : "<1 s",
+            sec: Math.abs(sec)
+        }
+    }
+
+    // extended from https://stackoverflow.com/questions/2685911
+    function abbrNum(number, decPlaces) {
+        decPlaces = Math.pow(10, decPlaces);
+        for (var i = units.length - 1; i >= 0; i--) {
+            var size = Math.pow(10, (i + 1) * 3);
+            if (size <= number) {
+                number = Math.round(number * decPlaces / size) / decPlaces;
+                if ((number == 1000) && (i < units.length - 1)) {
+                    number = 1;
+                    i++;
+                }
+                number += units[i];
+                break;
+            }
+        }
+
+        return number;
+    }
+
+    function logVerbose(str) {
+        return console.log("%c[verbose] " + '%c' + str, 'color: #1E90FF', 'color: inherit');
+    }
+
+    function unit(n) {
+        if (!n) return 1
+        return Math.pow(10, 3 * n)
+    }
+
+    function areaMultiplier(n) {
+        switch (n) {
+            case 0:
+                return 1
+                break;
+            case 1:
+                return 2
+                break;
+            case 2:
+                return 5
+                break;
+            case 3:
+                return 20
+                break;
+            case 4:
+                return 100
+                break;
+            case 5:
+                return 750
+                break;
+            case 6:
+                return 10 * unit(1)
+                break;
+            case 7:
+                return 120 * unit(1)
+                break;
+            case 8:
+                return 3 * unit(2)
+                break;
+            case 9:
+                return 100 * unit(2)
+                break;
+            case 10:
+                return 3 * unit(3)
+                break;
+            case 11:
+                return 90 * unit(3)
+                break;
+            case 12:
+                return 2.5 * unit(4)
+                break;
+            case 13:
+                return 75 * unit(4)
+                break;
+            case 14:
+                return 2.25 * unit(5)
+                break;
+            case 15:
+                return 75 * unit(5)
+                break;
+            case 16:
+                return 3 * unit(6)
+                break;
+            case 17:
+                return 3.3 * unit(6)
+                break;
+            case 18:
+                return 3.6 * unit(6)
+                break;
+            case 19:
+                return 300 * unit(6)
+                break;
+            case 20:
+                return 30 * unit(7)
+                break;
+            case 21:
+                return 7.5 * unit(8)
+                break;
+            case 22:
+                return unit(9)
+                break;
+
+            default:
+                return 1
+                break;
+        }
+    }
+
+    function rankMultiplier(n) {
+        switch (n) {
+            case 0:
+                return {
+                    power: 1,
+                    token: 1
+                }
+                break;
+            case 1:
+                return {
+                    power: 2,
+                    token: 2
+                }
+                break;
+            case 2:
+                return {
+                    power: 4,
+                    token: 3
+                }
+                break;
+            case 3:
+                return {
+                    power: 10,
+                    token: 4
+                }
+                break;
+            case 4:
+                return {
+                    power: 35,
+                    token: 5
+                }
+                break;
+            case 5:
+                return {
+                    power: 100,
+                    token: 6
+                }
+                break;
+            case 6:
+                return {
+                    power: 500,
+                    token: 7
+                }
+                break;
+            case 7:
+                return {
+                    power: 2.5 * unit(1),
+                    token: 8
+                }
+                break;
+            case 8:
+                return {
+                    power: 10 * unit(1),
+                    token: 9
+                }
+                break;
+            case 9:
+                return {
+                    power: 100 * unit(1),
+                    token: 10
+                }
+                break;
+            case 10:
+                return {
+                    power: 750 * unit(1),
+                    token: 11
+                }
+                break;
+            case 11:
+                return {
+                    power: 9 * unit(2),
+                    token: 12
+                }
+                break;
+            case 12:
+                return {
+                    power: 100 * unit(2),
+                    token: 13
+                }
+                break;
+            case 13:
+                return {
+                    power: 2 * unit(3),
+                    token: 14
+                }
+                break;
+            case 14:
+                return {
+                    power: 40 * unit(3),
+                    token: 15
+                }
+                break;
+            case 15:
+                return {
+                    power: 1 * unit(4),
+                    token: 15
+                }
+                break;
+            case 16:
+                return {
+                    power: 100 * unit(4),
+                    token: 16
+                }
+                break;
+            case 17:
+                return {
+                    power: 100 * unit(5),
+                    token: 16
+                }
+                break;
+            case 18:
+                return {
+                    power: unit(7),
+                    token: 17
+                }
+                break;
+
+            default:
+                return {
+                    power: 1,
+                    token: 1
+                }
+                break;
+        }
+    }
+
+    function fusionMultiplier(n) {
+        switch (n) {
+            case 0:
+                return { power: 1, gems: 1 }
+                break;
+            case 1:
+                return { power: 25, gems: 2 }
+                break;
+            case 2:
+                return { power: 500, gems: 3 }
+                break;
+            case 3:
+                return { power: 10 * unit(1), gems: 4 }
+                break;
+            case 4:
+                return { power: 250 * unit(1), gems: 5 }
+                break;
+            case 5:
+                return { power: 5 * unit(2), gems: 6 }
+                break;
+            case 6:
+                return { power: 100 * unit(2), gems: 7 }
+                break;
+            case 7:
+                return { power: 2 * unit(3), gems: 8 }
+                break;
+            case 8:
+                return { power: 200 * unit(3), gems: 9 }
+                break;
+
+            default:
+                return 1
+                break;
+        }
+    }
+
+    function transformMultiplier(n) {
+        switch (n) {
+            case 0:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 1:
+                return {
+                    day: 1.2,
+                    night: 1.2,
+                    token: 1,
+                    gem: 1.75,
+                    event: 1
+                }
+                break;
+            case 2:
+                return {
+                    day: 1,
+                    night: 2,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 3:
+                return {
+                    day: 2,
+                    night: 2,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 4:
+                return {
+                    day: 2.5,
+                    night: 2.5,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 5:
+                return {
+                    day: 3.5,
+                    night: 3.5,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 6:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1.1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 7:
+                return {
+                    day: 2,
+                    night: 4,
+                    token: 1,
+                    gem: 4,
+                    event: 3
+                }
+                break;
+            case 8:
+                return {
+                    day: 4,
+                    night: 4,
+                    token: 1.15,
+                    gem: 6,
+                    event: 1
+                }
+                break;
+            case 9:
+                return {
+                    day: 5,
+                    night: 5,
+                    token: 1,
+                    gem: 7,
+                    event: 1
+                }
+                break;
+            case 10:
+                return {
+                    day: 4.5,
+                    night: 4.5,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+
+            case 11:
+                return {
+                    day: 6,
+                    night: 6,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 12:
+                return {
+                    day: 1.4,
+                    night: 1.4,
+                    token: 1,
+                    gem: 1.5,
+                    event: 1.5
+                }
+                break;
+            case 13:
+                return {
+                    day: 2.3,
+                    night: 2.3,
+                    token: 1,
+                    gem: 2,
+                    event: 2
+                }
+                break;
+            case 14:
+                return {
+                    day: 4.8,
+                    night: 4.8,
+                    token: 1.1,
+                    gem: 4,
+                    event: 4
+                }
+                break;
+            case 15:
+                return {
+                    day: 10.31,
+                    night: 10.31,
+                    token: 1.1031,
+                    gem: 10.31,
+                    event: 10.31
+                }
+                break;
+            case 16:
+                return {
+                    day: 8,
+                    night: 16,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 17:
+                return {
+                    day: 16,
+                    night: 16,
+                    token: 1.16,
+                    gem: 16,
+                    event: 1
+                }
+                break;
+            case 18:
+                return {
+                    day: 23,
+                    night: 23,
+                    token: 1.23,
+                    gem: 23,
+                    event: 1
+                }
+                break;
+            case 19:
+                return {
+                    day: 30,
+                    night: 30,
+                    token: 1.275,
+                    gem: 30,
+                    event: 1
+                }
+                break;
+            case 20:
+                return {
+                    day: 37.5,
+                    night: 37.5,
+                    token: 1.3,
+                    gem: 37.5,
+                    event: 1
+                }
+                break;
+            case 21:
+                return {
+                    day: 5.5,
+                    night: 5.5,
+                    token: 1,
+                    gem: 6,
+                    event: 1
+                }
+                break;
+            case 22:
+                return {
+                    day: 1.6,
+                    night: 1.6,
+                    token: 1,
+                    gem: 1.6,
+                    event: 1.5
+                }
+                break;
+            case 23:
+                return {
+                    day: 2.5,
+                    night: 2.5,
+                    token: 1,
+                    gem: 2.5,
+                    event: 2
+                }
+                break;
+            case 24:
+                return {
+                    day: 4.2,
+                    night: 4.2,
+                    token: 1,
+                    gem: 3.5,
+                    event: 3.5
+                }
+                break;
+            case 25:
+                return {
+                    day: 8,
+                    night: 8,
+                    token: 1.1025,
+                    gem: 8,
+                    event: 8
+                }
+                break;
+            case 26:
+                return {
+                    day: 12.25,
+                    night: 12.25,
+                    token: 1.1225,
+                    gem: 12.25,
+                    event: 12.25
+                }
+                break;
+            case 27:
+                return {
+                    day: 7.5,
+                    night: 7.5,
+                    token: 1.12,
+                    gem: 7.5,
+                    event: 1
+                }
+                break;
+            case 28:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1,
+                    gem: 10,
+                    event: 1
+                }
+                break;
+            case 29:
+                return {
+                    day: 17,
+                    night: 17,
+                    token: 1.17,
+                    gem: 17,
+                    event: 1
+                }
+                break;
+            case 30:
+                return {
+                    day: 21,
+                    night: 21,
+                    token: 1.21,
+                    gem: 21,
+                    event: 1
+                }
+                break;
+            case 31:
+                return {
+                    day: 27,
+                    night: 27,
+                    token: 1.27,
+                    gem: 27,
+                    event: 1
+                }
+                break;
+            case 32:
+                return {
+                    day: 32,
+                    night: 32,
+                    token: 1.275,
+                    gem: 32,
+                    event: 1
+                }
+                break;
+            case 33:
+                return {
+                    day: 15,
+                    night: 15,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+            case 34:
+                return {
+                    day: 10,
+                    night: 10,
+                    token: 1.125,
+                    gem: 10,
+                    event: 1
+                }
+                break;
+            case 35:
+                return {
+                    day: 1.25,
+                    night: 1.25,
+                    token: 1.025,
+                    gem: 1.25,
+                    event: 1
+                }
+                break;
+            case 36:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1,
+                    gem: 3.5,
+                    event: 1
+                }
+                break;
+            case 37:
+                return {
+                    day: 7,
+                    night: 7,
+                    token: 1,
+                    gem: 15,
+                    event: 1
+                }
+                break;
+            case 38:
+                return {
+                    day: 12,
+                    night: 12,
+                    token: 1.075,
+                    gem: 12,
+                    event: 1
+                }
+                break;
+            case 39:
+                return {
+                    day: 1.8,
+                    night: 1.8,
+                    token: 1,
+                    gem: 1.5,
+                    event: 2
+                }
+                break;
+            case 40:
+                return {
+                    day: 3,
+                    night: 3,
+                    token: 1,
+                    gem: 3.5,
+                    event: 3.5
+                }
+                break;
+            case 41:
+                return {
+                    day: 9,
+                    night: 9,
+                    token: 1.1,
+                    gem: 5,
+                    event: 5
+                }
+                break;
+            case 42:
+                return {
+                    day: 14,
+                    night: 14,
+                    token: 1.15,
+                    gem: 10.31,
+                    event: 10.31
+                }
+                break;
+            case 43:
+                return {
+                    day: 2,
+                    night: 2,
+                    token: 1,
+                    gem: 2,
+                    event: 2
+                }
+                break;
+            case 44:
+                return {
+                    day: 3.5,
+                    night: 3.5,
+                    token: 1,
+                    gem: 3.5,
+                    event: 3.5
+                }
+                break;
+            case 45:
+                return {
+                    day: 9.5,
+                    night: 9.5,
+                    token: 1.1025,
+                    gem: 6,
+                    event: 6
+                }
+                break;
+            case 46:
+                return {
+                    day: 14.5,
+                    night: 14.5,
+                    token: 1.1225,
+                    gem: 12.25,
+                    event: 12.25
+                }
+                break;
+            case 47:
+                return {
+                    day: 7,
+                    night: 7,
+                    token: 1.10,
+                    gem: 7,
+                    event: 1
+                }
+                break;
+            case 48:
+                return {
+                    day: 13.5,
+                    night: 13.5,
+                    token: 1.135,
+                    gem: 13.5,
+                    event: 1
+                }
+                break;
+            case 49:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1,
+                    gem: 3,
+                    event: 1
+                }
+                break;
+            case 50:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1,
+                    gem: 2.5,
+                    event: 1
+                }
+                break;
+            default:
+                return {
+                    day: 1,
+                    night: 1,
+                    token: 1,
+                    gem: 1,
+                    event: 1
+                }
+                break;
+        }
+    }
+    var hid = document.getElementById('hid');
+
+    hid.style.cursor = 'pointer';
+    hid.onclick = function () {
+        hid.remove();
+    };
+</script>
+
+</html>
