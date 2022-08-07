@@ -1,6 +1,7 @@
 const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const cloudflareIpProcessor = require('../libs/cloudflareIpProcessor');
 const logger = require('../libs/logger');
@@ -55,6 +56,15 @@ module.exports = (app) => {
             useShortDoctype: true,
             removeStyleLinkTypeAttributes: true
         }
+    }));
+    
+    app.use(fileUpload({
+        limits: { fileSize: 150 * 1024 * 1024 },
+        safeFileNames: true,
+        preserveExtension: 16,
+        abortOnLimit: true,
+        useTempFiles: true,
+        tempFileDir: path.join(app.dirname, '../upload/temp/')
     }));
 
     app.use(compression());
