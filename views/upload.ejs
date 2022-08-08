@@ -48,7 +48,7 @@
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
             <div>
-                <form id="upload" action="/upload" method="post" enctype="multipart/form-data">
+                <form id="upload" action='https://api.tawan475.dev/upload' method="post" enctype="multipart/form-data">
                     <div class="flex-container">
                         <div><input type="file" name="file" id="file" style="color:white;" required></div>
                         <div class="container high">
@@ -65,7 +65,7 @@
                                     $("#fullurl").html("");
                                     var startUpload = Date.now();
                                     $.ajax({
-                                        url: '/upload',
+                                        url: 'https://api.tawan475.dev/upload',
                                         type: 'post',
                                         data: new FormData($('#upload')[0]),
                                         processData: false,
