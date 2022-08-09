@@ -8,6 +8,8 @@ const logger = require('../libs/logger');
 
 module.exports = (app) => {
     app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "https://tawan475.dev");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.setHeader('X-Powered-By', 'tawan475');
 
         if (req.socket.localAddress !== req.socket.remoteAddress) {
@@ -57,15 +59,5 @@ module.exports = (app) => {
             removeStyleLinkTypeAttributes: true
         }
     }));
-    
-    app.use(fileUpload({
-        limits: { fileSize: 150 * 1024 * 1024 },
-        safeFileNames: true,
-        preserveExtension: 16,
-        abortOnLimit: true,
-        useTempFiles: true,
-        tempFileDir: path.join(app.dirname, '../upload/temp/')
-    }));
-
     app.use(compression());
 }
