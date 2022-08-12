@@ -583,19 +583,19 @@
                             <option value="1.15">1.15</option>
                         </select></td>
                 </tr>
-				<tr>
-					<td style="text-align: right;">Aritfact stat multiplier</td>
-					<td style="text-align: left;"><input type="text" id="artifactStatSpaceRaw"></td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div style="text-align: center;">
-							To use this feature you must put each of your<br>
-							artifact's multiplier in this format "artifact A+artifact B"<br>
-							for example; "1.125+1.2"
-						</div>
-					</td>
-				</tr>
+                <tr>
+                    <td style="text-align: right;">Aritfact stat multiplier</td>
+                    <td style="text-align: left;"><input type="text" id="artifactStatSpaceRaw"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div style="text-align: center;">
+                            To use this feature you must put each of your<br>
+                            artifact's multiplier in this format "artifact A+artifact B"<br>
+                            for example; "1.125+1.2"
+                        </div>
+                    </td>
+                </tr>
                 <tr>
                     <td style="text-align: right;">Power you want (SPACE)</td>
                     <td style="text-align: left;"><input type="number" min="1" step="any" id="powerWantSpace"></td>
@@ -1312,8 +1312,8 @@
 
         var transformSpace = document.getElementById("transformSpace").value;
 
-		var artifactStatSpaceRaw = document.getElementById("artifactStatSpaceRaw").value;
-		var artifactStatSpace = artifactStatSpaceRaw.split("+").filter(parseFloat).map(parseFloat).map(f => f - 1).reduce((a, b) => a + b, 1);
+        var artifactStatSpaceRaw = document.getElementById("artifactStatSpaceRaw").value;
+        var artifactStatSpace = artifactStatSpaceRaw.split("+").filter(parseFloat).map(parseFloat).map(f => f - 1).reduce((a, b) => a + b, 1);
         var goalSpace = get("goalSpace");
         var powerPerSecSpaceValue = get("powerPerTickSpace");
         var powerPerSecSpaceUnit = get("powerPerTickUnitSpace");
@@ -1340,10 +1340,10 @@
         logVerbose(`powerWantSpaceNormalize: ${powerWantSpaceNormalize} (10^(29 + (${powerWantSpace} / ${(statTypeSpace === 'endurance' ? 1000 : 250)} )))`);
         logVerbose(`powerHaveSpaceNormalize: ${powerHaveSpaceNormalize} (10^(29 + (${powerWantSpace} / ${(statTypeSpace === 'endurance' ? 1000 : 250)} )))`);
         logVerbose(`powerPerSecSpace: ${powerPerSecSpace}`);
-		logVerbose(`transformSpace: ${transformSpace}`);
-		logVerbose(`transformSpaceMultiplier: ${transformSpaceMultiplier}`);
-		logVerbose(`artifactStatSpace: ${artifactStatSpace}`);
-		logVerbose(`goalSpace: ${goalSpace}`);
+        logVerbose(`transformSpace: ${transformSpace}`);
+        logVerbose(`transformSpaceMultiplier: ${transformSpaceMultiplier}`);
+        logVerbose(`artifactStatSpace: ${artifactStatSpace}`);
+        logVerbose(`goalSpace: ${goalSpace}`);
         logVerbose(``);
         logVerbose(`nightDoubleSpace: ${nightDoubleSpace}`);
         logVerbose(`powerPerSecSpace: ${powerPerSecSpace}`);
