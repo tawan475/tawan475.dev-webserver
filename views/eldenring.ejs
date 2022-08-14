@@ -181,7 +181,7 @@
 
             document.getElementById("result").innerHTML = `Shareable Link: <a href="${resUrl}">${resUrl}</a>`;
         };
-        ajax.open('POST', '/upload');
+        ajax.open('POST', 'https://api.tawan475.dev/upload');
         ajax.send(formData);
     }
 </script>
