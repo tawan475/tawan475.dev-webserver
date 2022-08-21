@@ -49,7 +49,7 @@
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
             <div>
-                <form id="shorten" action="/shorten" method="post">
+                <form id="shorten" action="https://api.tawan475.dev/shorten" method="post">
                     <div class="flex-container">
                         <div><input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required></div>
                         <div class="container high">
@@ -58,18 +58,47 @@
                                         value="Shorten"></input>
                                 <script>function copy(a){var b=document.createElement("textarea");b.style.top="0",b.style.left="0",b.style.position="fixed",b.style.width="2em",b.style.height="2em",b.style.padding=0,b.style.textAreaorder="none",b.style.outline="none",b.style.boxShadow="none",b.style.background="transparent",b.value=a,document.body.appendChild(b),b.focus(),b.select();try{var c=document.execCommand("copy"),d=c?"successful":"unsuccessful";"successful"==d&&$("#result").html("</br>Copied to clipboard successfully!"),console.log("copied to clipboard "+d)}catch(a){console.error("unable to copy",a)}document.body.removeChild(b)}</script>
                                 <script>function msToTime(a){let b=Math.floor(a/1e3);a%=1e3;let c=Math.floor(b/60);b%=60;let d=Math.floor(c/60);return c%=60,`${d?d+" Hour"+(1==d?"":"s"):""}${c?(d?" ":"")+c+" Minute"+(1==c?"":"s"):""}${b?(d||c?" ":"")+b+" Second"+(1==b?"":"s"):""}${a%1e3?(d||c||b?" ":"")+a%1e3+"ms":""}`}</script>
-                                <!-- <script>
-                                function msToTime(ms) {
-                                    let s = Math.floor(ms / 1000);
-                                        ms = ms % 1000;
-                                    let m = Math.floor(s / 60);
-                                        s = s %  60
-                                    let hr = Math.floor(m / 60);
-                                        m = m % 60
-                                    return `${hr?hr+" Hour"+(hr!=1?"s":""):""}${m?(hr?" ":"")+m+" Minute"+(m!=1?"s":""):""}${s?((hr||m)?" ":"")+s+" Second"+(s!=1?"s":""):""}${(ms % 1000)?((hr||m||s)?" ":"")+(ms % 1000)+"ms":""}`
-                                }
-                                </script> -->
-                                <script>document.getElementById("shorten").addEventListener("submit",function(e){e;e.preventDefault();$("#result").html("</br>Uploading...");var startUpload=Date.now();$.ajax({url: '/shorten', type: 'post', data: $("#shorten").serialize(), success:function({shorten:a}){copy(a.url);a.url&&($("#timeTook").html("</br>Time took: " + msToTime(Date.now()-startUpload)),$("#url_text").html("</br></br>URL: "),$("#url_url").html(a.url).attr("href",a.url),$("#uid_text").html("</br>UID: "),$("#uid_uid").html(a.uid).attr("href","https://go.tawan475.dev/"+a.file_uid))}})});</script>
+                                    <!-- <script>
+                                    function msToTime(ms) {
+                                        let s = Math.floor(ms / 1000);
+                                            ms = ms % 1000;
+                                        let m = Math.floor(s / 60);
+                                            s = s %  60
+                                        let hr = Math.floor(m / 60);
+                                            m = m % 60
+                                        return `${hr?hr+" Hour"+(hr!=1?"s":""):""}${m?(hr?" ":"")+m+" Minute"+(m!=1?"s":""):""}${s?((hr||m)?" ":"")+s+" Second"+(s!=1?"s":""):""}${(ms % 1000)?((hr||m||s)?" ":"")+(ms % 1000)+"ms":""}`
+                                    }
+                                    </script> -->
+                                    <script>
+                                        document.getElementById("shorten").addEventListener("submit", function(e) {
+                                            e;
+                                            e.preventDefault();
+                                            $("#result").html("</br>Uploading...");
+                                            var startUpload = Date.now();
+                                            const form = new FormData();
+                                            form.append("url", $("#url").val());
+                                            $.ajax({
+                                                "async": true,
+                                                "crossDomain": true,
+                                                "url": "https://api.tawan475.dev/shorten",
+                                                "method": "POST",
+                                                "headers": {},
+                                                "processData": false,
+                                                "contentType": false,
+                                                "mimeType": "multipart/form-data",
+                                                "data": form,
+                                                success:function(res){
+                                                    let shortenn = shorten.shorten
+                                                    copy(shorten.url);
+                                                    shorten.url && $("#timeTook").html("</br>Time took: " + msToTime(Date.now()-startUpload));
+                                                    $("#url_text").html("</br></br>URL: ");
+                                                    $("#url_url").html(shorten.url).attr("href",shorten.url);
+                                                    $("#uid_text").html("</br>UID: ");
+                                                    $("#uid_uid").html(shorten.uid).attr("href","https://go.tawan475.dev/"+shorten.file_uid)
+                                                }
+                                            })
+                                        });
+                                    </script>
                             </div>
                                     
                             <div class="result">
