@@ -88,13 +88,14 @@
                                                 "mimeType": "multipart/form-data",
                                                 "data": form,
                                                 success:function(res){
-                                                    let shortenn = shorten.shorten
+                                                    res = JSON.parse(res);
+                                                    let shorten = res.shorten
                                                     copy(shorten.url);
                                                     shorten.url && $("#timeTook").html("</br>Time took: " + msToTime(Date.now()-startUpload));
-                                                    $("#url_text").html("</br></br>URL: ");
-                                                    $("#url_url").html(shorten.url).attr("href",shorten.url);
-                                                    $("#uid_text").html("</br>UID: ");
-                                                    $("#uid_uid").html(shorten.uid).attr("href","https://go.tawan475.dev/"+shorten.file_uid)
+                                                    $("#url_text").text("URL: ");
+                                                    $("#url_url").text(shorten.url).attr("href",shorten.url);
+                                                    $("#uid_text").text("UID: ");
+                                                    $("#uid_uid").text(shorten.uid).attr("href","https://go.tawan475.dev/"+shorten.file_uid)
                                                 }
                                             })
                                         });
@@ -109,11 +110,11 @@
                                     <div style="text-align: center; color: white;display:inline;" id="timeTook"></div>
                                 </td>
                                 <td>
-                                    <p id="url_text" style="color: white;display:inline;"></p><a href=""
+                                    </br></br><p id="url_text" style="color: white;display:inline;"></p><a href=""
                                         id="url_url"></a>
                                 </td>
                                 <td>
-                                    <p id="uid_text" style="color: white;display:inline;"></p><a href=""
+                                    </br><p id="uid_text" style="color: white;display:inline;"></p><a href=""
                                         id="uid_uid"></a>
                                 </td>
                             </div>
