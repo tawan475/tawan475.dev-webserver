@@ -84,7 +84,7 @@
             if ((input.files[0].size / (1000 * 1000)) > 50) return document.getElementById("result").innerHTML =
                 `File too big! ${(input.files[0].size / (1000 * 1000))}MB (Limit: 50MB)`
 
-            let filename = input.files[0].name;
+            let filename = input.files[0].name.replace(/\.[^.]+$/, '') + '.png';
             document.getElementById("result").innerHTML = '';
             downloadButtonDiv.style.display = "none";
             downloadButton.onclick = null;
